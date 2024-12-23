@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
+import 'swagger-ui-react/swagger-ui.css';
 
 const pretendard = localFont({
   src: [
