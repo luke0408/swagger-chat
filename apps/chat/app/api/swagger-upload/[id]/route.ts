@@ -1,9 +1,12 @@
 import { readFile } from 'fs/promises';
 import path from 'path';
 
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     const filePath = path.join(process.cwd(), 'tmp', 'swagger-docs', `${params.id}.json`);
 
