@@ -4,11 +4,11 @@ import path from 'path';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
+  _request: NextRequest,
+  context: { params: { id: string } }
 ) {
   try {
-    const filePath = path.join(process.cwd(), 'tmp', 'swagger-docs', `${params.id}.json`);
+    const filePath = path.join(process.cwd(), 'tmp', 'swagger-docs', `${context.params.id}.json`);
 
     const content = await readFile(filePath, 'utf-8');
 
