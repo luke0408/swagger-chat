@@ -17,7 +17,16 @@ export const ChatContent = () => {
   useEffect(() => {
     if (apiKey && url) {
       const locale = typeof window !== 'undefined' ? window.navigator.language : 'en';
-      chatServiceRef.current = new ChatService(apiKey, url, locale);
+      const chatService = new ChatService(apiKey, locale);
+      chatServiceRef.current = chatService;
+
+      (async () => {
+        try {
+          await chatService.initializeWithUrl(url);
+        } catch (error) {
+          console.error('Failed to initialize ChatService:', error);
+        }
+      })();
     }
   }, [apiKey, url]);
 
