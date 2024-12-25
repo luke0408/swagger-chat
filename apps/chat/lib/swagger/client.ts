@@ -1,94 +1,130 @@
-import { OpenApi } from '@samchon/openapi';
-import typia from 'typia';
+import { OpenApiV3_1 } from '@samchon/openapi';
 
-export async function fetchSwaggerDoc(url: string): Promise<OpenApi.IDocument> {
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error('Swagger 문서를 불러올 수 없습니다.');
-    }
+type HttpMethod = 'get' | 'post' | 'put' | 'delete' | 'patch';
 
-    const data = await response.json();
-    return typia.json.assertParse<OpenApi.IDocument>(data);
-  } catch (err) {
-    if (err instanceof Error) {
-      throw new Error(`Swagger 문서 파싱 에러: ${err.message}`);
-    }
-    throw err;
-  }
+function isReference(schema: any): schema is OpenApiV3_1.IJsonSchema.IReference {
+  return typeof schema === 'object' && schema !== null && '$ref' in schema;
 }
 
-export function parseSwaggerDoc(doc: OpenApi.IDocument): string {
-  let result = '';
-
-  if (doc.info) {
-    result += `API 이름: ${doc.info.title}\n`;
-    result += `버전: ${doc.info.version}\n`;
-    if (doc.info.description) {
-      result += `설명: ${doc.info.description}\n`;
-    }
-    result += '\n';
-  }
-
-  if (doc.paths) {
-    for (const [path, pathItem] of Object.entries(doc.paths)) {
-      result += `경로: ${path}\n`;
-
-      const methods = ['get', 'post', 'put', 'delete', 'patch'] as const;
-      for (const method of methods) {
-        const operation = pathItem?.[method];
-        if (!operation) continue;
-
-        result += `  ${method.toUpperCase()}\n`;
-        result += operation.summary ? `    요약: ${operation.summary}\n` : '';
-        result += operation.description ? `    설명: ${operation.description}\n` : '';
-
-        if (operation.parameters?.length) {
-          result += '    파라미터:\n';
-          operation.parameters.forEach(param => {
-            if ('$ref' in param) return;
-            if (!('name' in param)) return;
-
-            result += `      - ${param.name} (${param.in}) ${param.required ? '[필수]' : '[선택]'}\n`;
-            result += param.description ? `        설명: ${param.description}\n` : '';
-            if ('schema' in param && param.schema) {
-              result += `        타입: ${getSchemaType(param.schema)}\n`;
-            }
-          });
-        }
-
-        result += '\n';
-      }
-    }
-  }
-
-  return result;
+function isBaseSchema(schema: any): schema is OpenApiV3_1.IJsonSchema.__ISignificant<string> {
+  return typeof schema === 'object' && schema !== null;
 }
 
-type SchemaType = {
-  type?: string;
-  items?: SchemaType | RefType;
-  properties?: Record<string, SchemaType | RefType>;
+interface SchemaType {
+  type?: string | string[];
+  items?: SchemaType;
+  properties?: Record<string, SchemaType>;
   required?: string[];
   description?: string;
   format?: string;
   enum?: string[];
-};
-
-type RefType = {
-  $ref: string;
-};
-
-type Schema = SchemaType | RefType;
-
-function getSchemaType(schema: Schema): string {
-  if ('$ref' in schema) {
-    return schema.$ref.split('/').pop() ?? 'unknown';
-  }
-
-  if (schema.type === 'array' && schema.items) {
-    return `${getSchemaType(schema.items)}[]`;
-  }
-
-  return schema.type ?? 'unknown';
+  const?: unknown;
+  $ref?: string;
+  anyOf?: SchemaType[];
+  oneOf?: SchemaType[];
 }
+
+class SwaggerParser {
+  private static readonly HTTP_METHODS: HttpMethod[] = ['get', 'post', 'put', 'delete', 'patch'];
+
+  private static normalizeType(type?: any): string | string[] | undefined {
+    if (!type) return undefined;
+    if (Array.isArray(type)) {
+      return type.filter((t): t is string => typeof t === 'string');
+    }
+    return typeof type === 'string' ? type : undefined;
+  }
+
+  private static normalizeEnum(enumValues?: unknown[]): string[] | undefined {
+    if (!Array.isArray(enumValues)) return undefined;
+    return enumValues.filter((e): e is string => typeof e === 'string');
+  }
+
+  private static convertProperties(
+    properties?: Record<string, any>
+  ): Record<string, SchemaType> | undefined {
+    if (!properties || typeof properties !== 'object') return undefined;
+
+    const result: Record<string, SchemaType> = {};
+    for (const [key, value] of Object.entries(properties)) {
+      const converted = SwaggerParser.convertToSchemaType(value);
+      if (converted) {
+        result[key] = converted;
+      }
+    }
+    return Object.keys(result).length > 0 ? result : undefined;
+  }
+
+  static convertToSchemaType(schema?: OpenApiV3_1.IJsonSchema | OpenApiV3_1.IJsonSchema.IReference): SchemaType | undefined {
+    if (!schema || typeof schema !== 'object') return undefined;
+
+    try {
+      const result: SchemaType = {};
+
+      if (isReference(schema)) {
+        result.$ref = schema.$ref;
+        return result;
+      }
+
+      if (isBaseSchema(schema)) {
+        if ('type' in schema) {
+          result.type = this.normalizeType(schema.type);
+        }
+
+        if ('items' in schema) {
+          const items = Array.isArray(schema.items) ? schema.items[0] : schema.items;
+          result.items = this.convertToSchemaType(items);
+        }
+
+        if ('properties' in schema && schema.properties) {
+          result.properties = this.convertProperties(schema.properties);
+        }
+
+        if ('required' in schema && Array.isArray(schema.required)) {
+          result.required = schema.required;
+        }
+
+        if ('description' in schema) {
+          result.description = schema.description;
+        }
+
+        if ('format' in schema) {
+          result.format = schema.format;
+        }
+
+        if ('enum' in schema) {
+          result.enum = this.normalizeEnum(schema.enum);
+        }
+      }
+
+      return Object.keys(result).length > 0 ? result : undefined;
+
+    } catch (error) {
+      console.error('Schema conversion error:', error);
+      return undefined;
+    }
+  }
+
+  static extractSchemaType(schema: SchemaType): string {
+    if (schema.$ref) return schema.$ref.split('/').pop() || 'unknown';
+    if (!schema.type) return 'unknown';
+
+    const type = Array.isArray(schema.type) ? schema.type[0] : schema.type;
+
+    switch (type) {
+      case 'array':
+        return schema.items ? `${this.extractSchemaType(schema.items)}[]` : 'unknown[]';
+      case 'object':
+        if (!schema.properties) return 'object';
+        const props = Object.entries(schema.properties)
+          .map(([key, prop]) => `${key}: ${this.extractSchemaType(prop)}`)
+          .join(', ');
+        return `{ ${props} }`;
+      default:
+        return type;
+    }
+  }
+}
+
+export const convertToSchemaType = SwaggerParser.convertToSchemaType;
+export const extractSchemaType = SwaggerParser.extractSchemaType;

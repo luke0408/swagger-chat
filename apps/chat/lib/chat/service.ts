@@ -1,4 +1,4 @@
-import { OpenApi } from '@samchon/openapi';
+import { OpenApiV3_1 } from '@samchon/openapi';
 
 import { SYSTEM_PROMPT } from '../../constants/prompt';
 import { createChatCompletion } from '../openai/client';
@@ -6,7 +6,7 @@ import { createChatCompletion } from '../openai/client';
 import type { SimpleChatMessage, SimpleChatRole } from '../../types/openai';
 
 export class ChatService {
-  private swaggerDoc: OpenApi.IDocument | null = null;
+  private swaggerDoc: OpenApiV3_1.IDocument | null = null;
   private parsedDoc: string | null = null;
   private messages: SimpleChatMessage[] = [];
   private locale: string;
@@ -31,7 +31,7 @@ export class ChatService {
     }
   }
 
-  private async fetchSwaggerDoc(): Promise<OpenApi.IDocument> {
+  private async fetchSwaggerDoc(): Promise<OpenApiV3_1.IDocument> {
     try {
       const response = await fetch(this.swaggerUrl);
       if (!response.ok) {
@@ -51,7 +51,7 @@ export class ChatService {
     }
   }
 
-  private isValidSwaggerDoc(doc: unknown): doc is OpenApi.IDocument {
+  private isValidSwaggerDoc(doc: unknown): doc is OpenApiV3_1.IDocument {
     if (!doc || typeof doc !== 'object') return false;
 
     const typedDoc = doc as Record<string, unknown>;
@@ -78,7 +78,7 @@ export class ChatService {
     return true;
   }
 
-  private parseSwaggerDoc(doc: OpenApi.IDocument): string {
+  private parseSwaggerDoc(doc: OpenApiV3_1.IDocument): string {
     let result = '';
 
     if (doc.info) {
