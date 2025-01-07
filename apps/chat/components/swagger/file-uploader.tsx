@@ -1,111 +1,109 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { cn } from '@/lib/index';
 import { ArrowUpTrayIcon } from '@heroicons/react/24/outline';
 import { validateSwaggerFile } from '@/lib/utils/validation';
+import { useSwaggerStore } from '@/store/useSwaggerStore';
+
+const DEFAULT_ACCEPT = '.json,.yaml,.yml';
+const DEFAULT_MAX_SIZE = 5 * 1024 * 1024; // 5MB
+const DEFAULT_LABEL = 'Drag and drop or click to upload a file';
 
 interface FileUploaderProps {
   accept?: string;
   maxSize?: number;
-  onFileSelect?: (file: File) => void;
   className?: string;
   label?: string;
+  onSuccess?: () => void;
+}
+
+interface DragEventHandlers {
+  onDragEnter: (e: React.DragEvent) => void;
+  onDragOver: (e: React.DragEvent) => void;
+  onDragLeave: (e: React.DragEvent) => void;
+  onDrop: (e: React.DragEvent) => void;
 }
 
 export function FileUploader({
-  accept = '.json,.yaml,.yml',
-  maxSize = 5 * 1024 * 1024,
-  onFileSelect,
+  accept = DEFAULT_ACCEPT,
+  maxSize = DEFAULT_MAX_SIZE,
   className,
-  label = 'Drag and drop or click to upload a file',
+  label = DEFAULT_LABEL,
+  onSuccess,
 }: FileUploaderProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const [uploadedFileUrl, setUploadedFileUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { setFile, setType } = useSwaggerStore();
 
-  const handleFileUpload = async (file: File): Promise<string> => {
-    console.log('Uploading file:', file.name, file.type);
-
-    const formData = new FormData();
-    formData.append('file', file);
+  const validateFile = useCallback((file: File): boolean => {
+    if (file.size > maxSize) {
+      setErrorMessage(`File size exceeds ${maxSize / 1024 / 1024}MB limit`);
+      return false;
+    }
 
     try {
-      const response = await fetch('/api/swagger-upload', {
-        method: 'POST',
-        body: formData,
-      });
-
-      console.log('Upload response status:', response.status);
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Upload error:', errorText);
-        throw new Error(errorText || 'Upload failed');
+      const isValid = validateSwaggerFile(file);
+      if (!isValid) {
+        setErrorMessage('Invalid Swagger file');
+        return false;
       }
-
-      const result = await response.json();
-      console.log('Upload result:', result);
-
-      return result.url;
+      return true;
     } catch (error) {
-      console.error('File upload error:', error);
-      throw error;
+      setErrorMessage(error instanceof Error ? error.message : 'Upload failed');
+      return false;
     }
-  };
+  }, [maxSize]);
 
-  const handleDrop = async (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(false);
+  const handleFileSuccess = useCallback((file: File) => {
+    setFile(file);
+    setType('file');
     setErrorMessage('');
+    onSuccess?.();
+  }, [setFile, setType, onSuccess]);
 
-    const file = e.dataTransfer.files[0];
-    if (file) {
-      console.log('Dropped file:', file.name, file.type);
-
-      try {
-        if (!validateSwaggerFile(file)) {
-          throw new Error('Invalid Swagger file');
-        }
-
-        const uploadedUrl = await handleFileUpload(file);
-        setUploadedFileUrl(uploadedUrl);
-        onFileSelect?.(file);
-      } catch (error) {
-        console.error('Drop upload error:', error);
-        setErrorMessage(error instanceof Error ? error.message : 'Upload failed');
-      }
+  const processFile = useCallback(async (file: File) => {
+    if (validateFile(file)) {
+      handleFileSuccess(file);
     }
-  };
+  }, [validateFile, handleFileSuccess]);
 
-  const handleClick = () => {
-    fileInputRef.current?.click();
-  };
+  const handleDragEvents = useCallback((): DragEventHandlers => ({
+    onDragEnter: (e: React.DragEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setIsDragging(true);
+    },
+    onDragOver: (e: React.DragEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setIsDragging(true);
+    },
+    onDragLeave: (e: React.DragEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setIsDragging(false);
+    },
+    onDrop: async (e: React.DragEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setIsDragging(false);
+      setErrorMessage('');
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.dataTransfer.files[0];
+      if (file) await processFile(file);
+    },
+  }), [processFile]);
+
+  const handleFileChange = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      console.log('Selected file:', file.name, file.type);
+    if (file) await processFile(file);
 
-      try {
-        if (!validateSwaggerFile(file)) {
-          throw new Error('Invalid Swagger file');
-        }
-
-        const uploadedUrl = await handleFileUpload(file);
-        setUploadedFileUrl(uploadedUrl);
-        onFileSelect?.(file);
-      } catch (error) {
-        console.error('File change upload error:', error);
-        setErrorMessage(error instanceof Error ? error.message : 'Upload failed');
-      }
-    }
-
-    // 같은 파일 재선택을 위한 초기화
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
-  };
+  }, [processFile]);
+
+  const dragHandlers = handleDragEvents();
 
   return (
     <div className="w-full">
@@ -116,23 +114,8 @@ export function FileUploader({
           errorMessage && 'border-red-500',
           className
         )}
-        onDragEnter={(e: React.DragEvent) => {
-          e.preventDefault();
-          e.stopPropagation();
-          setIsDragging(true);
-        }}
-        onDragOver={(e: React.DragEvent) => {
-          e.preventDefault();
-          e.stopPropagation();
-          setIsDragging(true);
-        }}
-        onDragLeave={(e: React.DragEvent) => {
-          e.preventDefault();
-          e.stopPropagation();
-          setIsDragging(false);
-        }}
-        onDrop={handleDrop}
-        onClick={handleClick}
+        {...dragHandlers}
+        onClick={() => fileInputRef.current?.click()}
       >
         <input
           ref={fileInputRef}
@@ -144,9 +127,7 @@ export function FileUploader({
 
         <ArrowUpTrayIcon className="w-6 h-6 mb-4 text-gray-400" aria-hidden="true" />
 
-        <p className="mb-2 text-sm text-gray-500">
-          {label}
-        </p>
+        <p className="mb-2 text-sm text-gray-500">{label}</p>
 
         {accept !== '*/*' && (
           <p className="text-xs text-gray-400">
@@ -160,12 +141,6 @@ export function FileUploader({
           </p>
         )}
 
-        {uploadedFileUrl && (
-          <div className="absolute bottom-2 right-2 text-sm text-green-500">
-            File uploaded: {uploadedFileUrl}
-          </div>
-        )}
-
         {errorMessage && (
           <p className="absolute bottom-2 left-2 text-sm text-red-500">
             {errorMessage}
@@ -175,5 +150,3 @@ export function FileUploader({
     </div>
   );
 }
-
-FileUploader.displayName = 'FileUploader';

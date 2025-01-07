@@ -15,7 +15,6 @@ export default function LandingPage() {
   const {
     url,
     setUrl,
-    setFile,
     setType,
     submitSwagger
   } = useSwaggerStore();
@@ -106,10 +105,7 @@ export default function LandingPage() {
                 </div>
               ) : (
                 <FileUploader
-                  onFileSelect={(selectedFile) => {
-                    setFile(selectedFile);
-                    handleSubmit();
-                  }}
+                  onSuccess={handleSubmit}
                 />
               )}
             </section>
