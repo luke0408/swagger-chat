@@ -5,6 +5,7 @@ import { Button, Input } from '@/components/ui';
 import { FileUploader } from './file-uploader';
 import { useSwaggerStore } from '@/store/useSwaggerStore';
 import { useThrottle } from '@/hooks/useThrottle';
+import { useTranslation } from 'react-i18next';
 
 interface SwaggerInputProps {
   type: 'url' | 'file';
@@ -15,24 +16,25 @@ export function SwaggerInput({
   type,
   onSubmit
 }: SwaggerInputProps) {
+  const { t } = useTranslation();
   const { url, setUrl, reset } = useSwaggerStore();
   const throttledSubmit = useThrottle(onSubmit, 1000);
 
   return (
     <div className={cn('w-full')}>
       {type === 'url' ? (
-        <div className={cn('flex flex-col space-y-2')}>
+        <div className={cn('flex flex-col h-28 justify-between')}>
           <Input
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             onFocus={() => reset()}
-            placeholder="Enter Swagger/OpenAPI URL"
+            placeholder={t('landing.main.input.placeholder')}
           />
           <Button
             onClick={throttledSubmit}
             className={cn('w-full')}
           >
-            Submit
+            {t('landing.main.input.submit')}
           </Button>
         </div>
       ) : (

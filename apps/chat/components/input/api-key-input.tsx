@@ -1,10 +1,12 @@
+'use client';
+
 import { Button, Input } from "@/components/ui";
 import { cn } from "@/lib";
-import { useSettingsStore } from "@/store/useSettingsStore";
+import { useApiKeyStore } from "@/store/useApiKeyStore";
 import { useState } from "react";
 
 export const ApiKeyInput = () => {
-  const { setApiKey } = useSettingsStore();
+  const { setApiKey } = useApiKeyStore();
   const [inputKey, setInputKey] = useState('');
   const [error, setError] = useState('');
 
@@ -19,7 +21,7 @@ export const ApiKeyInput = () => {
   };
 
   return (
-    <div className={cn('flex flex-col space-y-4 p-4')}>
+    <div className={cn('flex flex-col space-y-4')}>
       <Input
         type="password"
         label="OpenAI API Key"
