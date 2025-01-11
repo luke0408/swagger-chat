@@ -5,6 +5,7 @@ import { Switch } from '@/components/ui';
 import { StepItem } from './step-item';
 import { useTranslation } from "react-i18next";
 import { useSwaggerStore } from '@/store/useSwaggerStore';
+import { useChatStore } from '@/store/useChatStore';
 import { useParams, useRouter } from 'next/navigation';
 import { STEPS } from "./steps";
 import { SwaggerInput } from "../input/swagger-input";
@@ -14,8 +15,13 @@ export function LandingMain() {
   const router = useRouter();
   const { t } = useTranslation();
   const { type, setType, submitSwagger } = useSwaggerStore();
+  const { clearMessages } = useChatStore();
 
   const handleSubmit = async () => {
+    // Reset existing chat data
+    clearMessages();
+    
+    // Submit new Swagger API
     const result = await submitSwagger();
     if (result) {
       router.push(`/${locale}/chat`);
