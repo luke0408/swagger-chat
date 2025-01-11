@@ -4,13 +4,13 @@ import { cn } from "@/lib";
 import { Switch } from '@/components/ui';
 import { StepItem } from './step-item';
 import { useTranslation } from "react-i18next";
-
 import { useSwaggerStore } from '@/store/useSwaggerStore';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { STEPS } from "./steps";
 import { SwaggerInput } from "../input/swagger-input";
 
 export function LandingMain() {
+  const { locale } = useParams();
   const router = useRouter();
   const { t } = useTranslation();
   const { type, setType, submitSwagger } = useSwaggerStore();
@@ -18,7 +18,7 @@ export function LandingMain() {
   const handleSubmit = async () => {
     const result = await submitSwagger();
     if (result) {
-      router.push('/chat');
+      router.push(`/${locale}/chat`);
     }
   };
 
