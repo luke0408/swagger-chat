@@ -1,0 +1,42 @@
+{
+  "header": {
+    "title": {
+      "line1": "Don't Read",
+      "line2": "Swagger anymore"
+    },
+    "description": "Explore Swagger docs through conversation."
+  },
+  "main": {
+    "getStarted": "Get Started",
+    "steps": {
+      "1": "Enter Swagger URL or upload file",
+      "2": "Review docs in familiar Swagger UI",
+      "3": "Chat with AI to explore APIs"
+    },
+    "input": {
+      "url": "URL",
+      "file": "File",
+      "placeholder": "Enter Swagger/OpenAPI URL",
+      "submit": "Submit",
+      "dragAndDrop": "Drag and drop your Swagger/OpenAPI file here",
+      "browse": "Browse",
+      "error": {
+        "invalidDocument": "Invalid Swagger/OpenAPI document. Please check the file format and required fields."
+      }
+    },
+    "help": {
+      "title": "Help",
+      "layout": {
+        "title": "Layout Usage Guide",
+        "content": [
+          "Drag the window header to move windows freely",
+          "Drag window corners or edges to resize"
+        ]
+      }
+    }
+  },
+  "footer": {
+    "line1": "Start with optimized Swagger UI,",
+    "line2": "then let AI help you understand APIs more easily."
+  }
+}

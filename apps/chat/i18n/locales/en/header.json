@@ -1,0 +1,11 @@
+{
+  "documentation": "Documentation",
+  "chat": "Chat",
+  "settings": "Settings",
+  "language": "Language",
+  "navigation": "Navigation",
+  "layout": {
+    "draggable": "Switch to Split View",
+    "split": "Switch to Draggable View"
+  }
+}

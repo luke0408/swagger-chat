@@ -1,0 +1,11 @@
+{
+  "documentation": "文档",
+  "chat": "聊天",
+  "settings": "设置",
+  "language": "语言",
+  "navigation": "导航",
+  "layout": {
+    "draggable": "切换到分割视图",
+    "split": "切换到可拖动视图"
+  }
+}
