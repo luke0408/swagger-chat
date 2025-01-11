@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, forwardRef } from 'react';
 import { cn } from '@/lib/index';
 
 interface TextAreaProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'onSubmit'> {
@@ -7,20 +7,11 @@ interface TextAreaProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaEl
   className?: string;
   wrapperClassName?: string;
   label?: string;
+  maxRows?: number;
 }
 
-export function TextArea({
-  onSubmit,
-  error,
-  className,
-  wrapperClassName,
-  placeholder,
-  value,
-  onChange,
-  label,
-  rows = 3,
-  ...props
-}: TextAreaProps) {
+export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
+  ({ onSubmit, error, className, wrapperClassName, placeholder, value, onChange, label, maxRows = 5, rows = 3, ...props }, ref) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -41,25 +32,25 @@ export function TextArea({
       )}
       <div className="relative">
         <textarea
-          ref={textareaRef}
+          ref={ref || textareaRef}
           value={value}
           onChange={onChange}
           onKeyDown={handleKeyDown}
           rows={rows}
           placeholder={placeholder}
           className={cn(
-            'w-full px-4 py-3 text-base transition-colors resize-none',
-            'rounded-t-lg border-0',
-            'bg-white ring-1 ring-inset ring-gray-300',
-            'focus:outline-none focus:ring-1.5 focus:ring-gray-500',
-            'placeholder:text-gray-400',
-            'overflow-y-auto',
+            'flex min-h-[120px] w-full rounded-md border border-gray-200',
+            'bg-white px-3 py-2 text-sm ring-offset-white placeholder:text-gray-500',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950',
+            'disabled:cursor-not-allowed disabled:opacity-50',
+            'resize-none overflow-y-auto',
             error && 'ring-red-500 focus:ring-red-500',
             'disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200',
             className
           )}
           style={{
-            height: `${Math.max(24 * rows, 72)}px`
+            height: `${Math.max(24 * rows, 72)}px`,
+            maxHeight: `${maxRows * 1.5}em`
           }}
           {...props}
         />
@@ -72,6 +63,6 @@ export function TextArea({
       )}
     </div>
   );
-}
+});
 
 TextArea.displayName = 'TextArea';
