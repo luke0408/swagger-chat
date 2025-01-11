@@ -21,7 +21,7 @@ export function Header({
 
   return (
     <>
-      <header className={cn('fixed top-0 w-full z-20 h-[48px] bg-white')}>
+      <header className={cn('fixed top-0 w-full z-20 h-[48px] bg-white border-b border-gray-200')}>
         <div className={cn('h-full max-w-7xl mx-auto px-4 flex items-center justify-between')}>
           <HeaderLeft title={title} isDefault={isDefault} onBackClick={onBackClick} />
           <HeaderRight

@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib';
-import { LanguageSelector } from '../language-selector';
+import { LanguageSelector } from './language-selector';
 
 interface SettingsPanelProps {
   isOpen: boolean;
