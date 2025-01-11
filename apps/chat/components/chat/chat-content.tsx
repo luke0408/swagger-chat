@@ -1,23 +1,25 @@
-import { ChatService } from "@/lib/chat/service";
+'use client';
+
+import { useCallback, useEffect, useRef } from "react";
 import { useChatStore } from "@/store/useChatStore";
-import { useSettingsStore } from "@/store/useSettingsStore";
-import { useSwaggerStore } from "@/store/useSwaggerStore";
-import { useEffect, useRef, useState } from "react";
 import { MessageHistory } from "./message-history";
-import { TextArea } from "../ui";
+import { ChatInput } from "./chat-input";
+import { useThrottle } from "@/hooks/useThrottle";
+import { cn } from "@/lib";
+import { ChatService } from "@/lib/chat/service";
+import { useSwaggerStore } from "@/store/useSwaggerStore";
+import { useApiKeyStore } from "@/store/useApiKeyStore";
 
 export const ChatContent = () => {
-  const { addMessage } = useChatStore();
-  const { apiKey } = useSettingsStore();
+  const { isLoading, addMessage, setIsLoading } = useChatStore();
   const { url } = useSwaggerStore();
-  const [isLoading, setIsLoading] = useState(false);
-  const [inputMessage, setInputMessage] = useState('');
+  const { encryptedApiKey } = useApiKeyStore();
   const chatServiceRef = useRef<ChatService | null>(null);
 
   useEffect(() => {
-    if (apiKey && url) {
+    if (encryptedApiKey && url) {
       const locale = typeof window !== 'undefined' ? window.navigator.language : 'en';
-      const chatService = new ChatService(apiKey, locale);
+      const chatService = new ChatService(encryptedApiKey, locale);
       chatServiceRef.current = chatService;
 
       (async () => {
@@ -28,52 +30,46 @@ export const ChatContent = () => {
         }
       })();
     }
-  }, [apiKey, url]);
+  }, [encryptedApiKey, url]);
 
-  const handleSendMessage = async () => {
-    if (!inputMessage.trim() || !chatServiceRef.current) return;
-
-    const userMessage = inputMessage.trim();
-
-    addMessage({
-      role: 'user',
-      content: userMessage
-    });
+  const handleSendMessage = useCallback(async (content: string) => {
+    if (!content.trim() || !chatServiceRef.current) return;
 
     setIsLoading(true);
-    setInputMessage('');
+    addMessage({
+      role: 'user',
+      content: content.trim(),
+    });
 
     try {
-      const assistantMessageContent = await chatServiceRef.current.sendMessage(userMessage);
-
+      const assistantMessageContent = await chatServiceRef.current.sendMessage(content.trim());
       addMessage({
         role: 'assistant',
-        content: assistantMessageContent
+        content: assistantMessageContent,
       });
     } catch (error) {
       console.error('Error sending message:', error);
       addMessage({
         role: 'assistant',
-        content: error instanceof Error ? error.message : '메시지 전송 중 오류가 발생했습니다.'
+        content: error instanceof Error ? error.message : '메시지 전송 중 오류가 발생했습니다.',
       });
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [addMessage, setIsLoading]);
+
+  const throttledSendMessage = useThrottle(handleSendMessage, 1000);
 
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex-1 overflow-y-auto">
+    <div className={cn('h-full flex flex-col relative')}>
+      <div className={cn('flex-1 overflow-y-auto pb-[166px]')}>
         <MessageHistory isLoading={isLoading} />
       </div>
-      <div className="border-t border-gray-300 pt-4">
-        <div className="flex space-x-1">
-          <TextArea
-            value={inputMessage}
-            onChange={(e) => setInputMessage(e.target.value)}
-            onSubmit={handleSendMessage}
-            placeholder="Type your message..."
-            rows={3}
+      <div className={cn('absolute bottom-0 left-0 right-0 h-[166px] bg-white border-t')}>
+        <div className={cn('p-4 h-full')}>
+          <ChatInput
+            onSendMessage={throttledSendMessage}
+            disabled={isLoading}
           />
         </div>
       </div>
