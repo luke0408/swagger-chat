@@ -1,11 +1,16 @@
+'use client';
+
 import { cn } from "@/lib";
+import { useTranslation } from "react-i18next";
 
 export function LandingFooter() {
+  const { t } = useTranslation();
+
   return (
     <footer className={cn('text-sm text-gray-500 text-center mt-8')}>
-      Start with optimized Swagger UI,
+      {t('landing.footer.line1')}
       <br />
-      then let AI help you understand APIs more easily.
+      {t('landing.footer.line2')}
     </footer>
   );
 }

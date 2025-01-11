@@ -1,6 +1,11 @@
+'use client';
+
 import { cn } from "@/lib";
+import { useTranslation } from "react-i18next";
 
 export function LandingHeader() {
+  const { t } = useTranslation();
+
   return (
     <header className={cn('text-center space-y-6 mb-8')}>
       <h1
@@ -11,12 +16,12 @@ export function LandingHeader() {
           'leading-tight'
         )}
       >
-        Don't Read
+        {t('landing.header.title.line1')}
         <br />
-        Swagger anymore
+        {t('landing.header.title.line2')}
       </h1>
       <p className={cn('text-lg text-gray-600 max-w-md mx-auto')}>
-        Explore Swagger docs through conversation.
+        {t('landing.header.description')}
       </p>
     </header>
   );

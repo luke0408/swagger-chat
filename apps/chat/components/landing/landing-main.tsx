@@ -3,6 +3,7 @@
 import { cn } from "@/lib";
 import { Switch } from '@/components/ui';
 import { StepItem } from './step-item';
+import { useTranslation } from "react-i18next";
 
 import { useSwaggerStore } from '@/store/useSwaggerStore';
 import { useRouter } from 'next/navigation';
@@ -11,6 +12,7 @@ import { SwaggerInput } from "../input/swagger-input";
 
 export function LandingMain() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { type, setType, submitSwagger } = useSwaggerStore();
 
   const handleSubmit = async () => {
@@ -24,7 +26,7 @@ export function LandingMain() {
     <main className={cn('w-full max-w-md space-y-6 md:space-y-8')}>
       <section>
         <h2 className={cn('text-xl font-semibold mb-3 text-center text-gray-700')}>
-          Get Started
+          {t('landing.main.getStarted')}
         </h2>
         {/* Steps */}
         <div className={cn('space-y-2 md:space-y-4 text-sm text-gray-600')}>
@@ -39,8 +41,8 @@ export function LandingMain() {
         <Switch
           value={type === 'file'}
           onChange={(value) => setType(value ? 'file' : 'url')}
-          leftLabel="URL"
-          rightLabel="File"
+          leftLabel={t('landing.main.input.url')}
+          rightLabel={t('landing.main.input.file')}
         />
 
         <SwaggerInput
