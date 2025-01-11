@@ -1,5 +1,10 @@
-import { create } from "zustand"
-import { validateSwaggerUrl, validateSwaggerFile, validateSwaggerDocument, parseFileContent } from "@/lib/utils/validation"
+import { create } from 'zustand';
+import {
+  validateSwaggerUrl,
+  validateSwaggerFile,
+  validateSwaggerDocument,
+  parseFileContent,
+} from '@/lib/utils/validation';
 
 /**
  * Type of Swagger document input
@@ -13,34 +18,34 @@ interface SwaggerState {
   /**
    * Input type (URL or File)
    */
-  type: SwaggerType
+  type: SwaggerType;
   /**
    * Swagger URL
    */
-  url: string
+  url: string;
   /**
    * Swagger file
    */
-  file: File | null
+  file: File | null;
   /**
    * Loading state
    */
-  isLoading: boolean
+  isLoading: boolean;
   /**
    * Error message
    */
-  error: string | null
+  error: string | null;
 }
 
 /**
  * Swagger store actions
  */
 interface SwaggerActions {
-  setType: (type: SwaggerType) => void
-  setUrl: (url: string) => void
-  setFile: (file: File | null) => void
-  reset: () => void
-  submitSwagger: () => Promise<boolean>
+  setType: (type: SwaggerType) => void;
+  setUrl: (url: string) => void;
+  setFile: (file: File | null) => void;
+  reset: () => void;
+  submitSwagger: () => Promise<boolean>;
 }
 
 /**
@@ -83,12 +88,13 @@ export const useSwaggerStore = create<SwaggerState & SwaggerActions>((set, get) 
 
     set({ file, error: null });
   },
-  reset: () => set({
-    url: '',
-    file: null,
-    error: null,
-    isLoading: false
-  }),
+  reset: () =>
+    set({
+      url: '',
+      file: null,
+      error: null,
+      isLoading: false,
+    }),
   submitSwagger: async () => {
     const { type, url, file } = get();
     set({ isLoading: true, error: null });
@@ -123,5 +129,5 @@ export const useSwaggerStore = create<SwaggerState & SwaggerActions>((set, get) 
 
     set({ isLoading: false });
     return false;
-  }
-}))
+  },
+}));

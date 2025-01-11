@@ -27,18 +27,18 @@ const getInitialWindowSizes = () => {
   if (typeof window === 'undefined') {
     return {
       width: 1024,
-      height: 768
+      height: 768,
     };
   }
   return {
     width: window.innerWidth,
-    height: window.innerHeight
+    height: window.innerHeight,
   };
 };
 
 const getDefaultPositions = (isMobile: boolean) => {
   const { width, height } = getInitialWindowSizes();
-  
+
   if (isMobile) {
     return {
       swaggerWindow: {

@@ -6,7 +6,10 @@ export const parseMarkdown = (text: string) => {
   });
 
   // Inline code (`code`)
-  text = text.replace(/`([^`]+)`/g, '<code class="px-1.5 py-0.5 mx-0.5 bg-gray-700 rounded text-sm font-mono text-gray-50">$1</code>');
+  text = text.replace(
+    /`([^`]+)`/g,
+    '<code class="px-1.5 py-0.5 mx-0.5 bg-gray-700 rounded text-sm font-mono text-gray-50">$1</code>'
+  );
 
   // Bold (**text** or __text__)
   text = text.replace(/(\*\*|__)(.*?)\1/g, '<strong>$2</strong>');

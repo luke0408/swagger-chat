@@ -9,8 +9,6 @@ export const ChatPanel = () => {
   const { encryptedApiKey } = useApiKeyStore();
 
   return (
-    <div className={cn('h-full p-4')}>
-      {encryptedApiKey ? <ChatContent /> : <ApiKeyInput />}
-    </div>
+    <div className={cn('h-full p-4')}>{encryptedApiKey ? <ChatContent /> : <ApiKeyInput />}</div>
   );
 };

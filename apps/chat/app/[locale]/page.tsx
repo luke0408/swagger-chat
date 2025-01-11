@@ -8,7 +8,11 @@ import { Header } from '@/components/ui/header/header';
 
 export default function LandingPage() {
   return (
-    <div className={cn('flex flex-col items-center justify-center min-h-screen px-8 md:p-0 bg-gray-50')}>
+    <div
+      className={cn(
+        'flex min-h-screen flex-col items-center justify-center bg-gray-50 px-8 md:p-0'
+      )}
+    >
       <Header isDefault={true} />
       <LandingHeader />
       <LandingMain />

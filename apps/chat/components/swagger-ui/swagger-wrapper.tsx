@@ -6,7 +6,7 @@ import { useErrorBoundary } from './error-boundary';
 import { cn } from '@/lib';
 
 const SwaggerUI = dynamic(() => import('swagger-ui-react'), {
-  ssr: false
+  ssr: false,
 });
 
 export const SwaggerWrapper = () => {
@@ -20,7 +20,7 @@ export const SwaggerWrapper = () => {
       return;
     }
 
-    file.text().then(content => {
+    file.text().then((content) => {
       const parsed = parseFileContent(content, file.name);
       setSpec(parsed as object);
     });
@@ -31,7 +31,7 @@ export const SwaggerWrapper = () => {
   return (
     <div className={cn('swagger-wrapper h-full')}>
       <ErrorBoundary>
-          <SwaggerUI url={url} spec={spec} />
+        <SwaggerUI url={url} spec={spec} />
       </ErrorBoundary>
     </div>
   );

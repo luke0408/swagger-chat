@@ -1,8 +1,8 @@
 'use client';
 
-import { cn } from "@/lib";
-import { useTranslation } from "react-i18next";
-import { StepTranslationKey } from "./steps";
+import { cn } from '@/lib';
+import { useTranslation } from 'react-i18next';
+import { StepTranslationKey } from './steps';
 
 interface StepItemProps {
   id: number;

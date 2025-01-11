@@ -26,13 +26,13 @@ export const HeaderRight = ({
       {/* Settings Button */}
       <button
         className={cn(
-          'p-2 hover:bg-gray-100 rounded-lg transition-transform',
+          'rounded-lg p-2 transition-transform hover:bg-gray-100',
           isSettingsOpen && 'rotate-180'
         )}
         aria-label="Settings"
         onClick={onSettingsClick}
       >
-        <Cog6ToothIcon className="w-5 h-5" />
+        <Cog6ToothIcon className="h-5 w-5" />
       </button>
     </div>
   );

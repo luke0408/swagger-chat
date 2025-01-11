@@ -4,8 +4,8 @@ import 'swagger-ui-react/swagger-ui.css';
 import './globals.css';
 
 export const metadata = {
-  title: "Swagger Chat",
-  description: "Chat with your Swagger API Documentation",
+  title: 'Swagger Chat',
+  description: 'Chat with your Swagger API Documentation',
 };
 
 export default function RootLayout({

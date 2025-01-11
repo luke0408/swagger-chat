@@ -10,7 +10,7 @@ interface Props {
 }
 
 export function MessageHistory({ isLoading }: Props) {
-  const messages = useChatStore(state => state.messages);
+  const messages = useChatStore((state) => state.messages);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -33,12 +33,12 @@ export function MessageHistory({ isLoading }: Props) {
           >
             <div
               className={cn(
-                'px-4 py-2 rounded-lg max-w-[80%] break-words whitespace-pre-wrap',
+                'max-w-[80%] whitespace-pre-wrap break-words rounded-lg px-4 py-2',
                 message.role === 'assistant' && 'bg-gray-50',
                 message.role === 'user' && 'bg-blue-500 text-white'
               )}
               dangerouslySetInnerHTML={{
-                __html: parseMarkdown(message.content)
+                __html: parseMarkdown(message.content),
               }}
             />
           </div>
@@ -46,9 +46,9 @@ export function MessageHistory({ isLoading }: Props) {
       )}
       {isLoading && (
         <div className="flex items-center space-x-2 text-sm text-gray-500">
-          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" />
-          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:0.2s]" />
-          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:0.4s]" />
+          <div className="h-2 w-2 animate-bounce rounded-full bg-gray-400" />
+          <div className="h-2 w-2 animate-bounce rounded-full bg-gray-400 [animation-delay:0.2s]" />
+          <div className="h-2 w-2 animate-bounce rounded-full bg-gray-400 [animation-delay:0.4s]" />
         </div>
       )}
       <div ref={messagesEndRef} />

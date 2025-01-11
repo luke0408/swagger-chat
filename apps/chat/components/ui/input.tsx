@@ -18,17 +18,13 @@ export function Input({
 }: InputProps) {
   return (
     <div className={cn('w-full space-y-2', wrapperClassName)}>
-      {label && (
-        <label className="text-sm font-medium text-gray-700">
-          {label}
-        </label>
-      )}
+      {label && <label className="text-sm font-medium text-gray-700">{label}</label>}
 
       <input
         type={type}
         className={cn(
-          'w-full px-4 h-12 text-base transition-colors',
-          'border-0 rounded-lg',
+          'h-12 w-full px-4 text-base transition-colors',
+          'rounded-lg border-0',
           'bg-white ring-1 ring-inset ring-gray-300',
           'focus:outline-none focus:ring-2 focus:ring-black',
           'placeholder:text-gray-400',
@@ -39,11 +35,7 @@ export function Input({
         {...props}
       />
 
-      {error && (
-        <p className="text-sm text-red-500">
-          {error}
-        </p>
-      )}
+      {error && <p className="text-sm text-red-500">{error}</p>}
     </div>
   );
 }

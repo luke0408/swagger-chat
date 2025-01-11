@@ -25,14 +25,14 @@ export default function WindowContainer() {
   }, [setIsMobile]);
 
   return (
-    <div className="h-screen flex flex-col">
+    <div className="flex h-screen flex-col">
       <Header
         isDefault={false}
         onBackClick={() => {
           router.push(`/${locale}`);
         }}
       />
-      <div className="mt-[48px] relative w-full h-[calc(100vh-48px)]">
+      <div className="relative mt-[48px] h-[calc(100vh-48px)] w-full">
         {isMobile ? (
           <MobileLayout />
         ) : layoutMode === 'draggable' ? (

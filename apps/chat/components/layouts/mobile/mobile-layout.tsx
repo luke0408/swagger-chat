@@ -14,7 +14,7 @@ export const MobileLayout = () => {
   return (
     <>
       <DraggableWindow
-        className="fixed top-0 left-0 right-0"
+        className="fixed left-0 right-0 top-0"
         {...swaggerWindow}
         title="Swagger Documentation"
         position={swaggerWindow}

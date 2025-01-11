@@ -12,10 +12,7 @@ interface SwaggerInputProps {
   onSubmit: () => Promise<void>;
 }
 
-export function SwaggerInput({
-  type,
-  onSubmit
-}: SwaggerInputProps) {
+export function SwaggerInput({ type, onSubmit }: SwaggerInputProps) {
   const { t } = useTranslation();
   const { url, setUrl, reset } = useSwaggerStore();
   const throttledSubmit = useThrottle(onSubmit, 1000);
@@ -23,17 +20,14 @@ export function SwaggerInput({
   return (
     <div className={cn('w-full')}>
       {type === 'url' ? (
-        <div className={cn('flex flex-col h-28 justify-between')}>
+        <div className={cn('flex h-28 flex-col justify-between')}>
           <Input
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             onFocus={() => reset()}
             placeholder={t('landing.main.input.placeholder')}
           />
-          <Button
-            onClick={throttledSubmit}
-            className={cn('w-full')}
-          >
+          <Button onClick={throttledSubmit} className={cn('w-full')}>
             {t('landing.main.input.submit')}
           </Button>
         </div>

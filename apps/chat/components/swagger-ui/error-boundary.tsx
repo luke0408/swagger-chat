@@ -19,7 +19,11 @@ class ErrorBoundaryComponent extends Component<Props> {
 
   render() {
     if (this.state.hasError) {
-      return this.props.fallback ?? <div className="p-4">Failed to load Swagger UI. Please refresh the page.</div>;
+      return (
+        this.props.fallback ?? (
+          <div className="p-4">Failed to load Swagger UI. Please refresh the page.</div>
+        )
+      );
     }
 
     return this.props.children;
@@ -31,14 +35,17 @@ export const useErrorBoundary = () => {
   const [key, setKey] = useState(0);
 
   const reset = useCallback(() => {
-    setKey(prev => prev + 1);
+    setKey((prev) => prev + 1);
   }, []);
 
-  const ErrorBoundary = useCallback(({ children, fallback }: Props) => (
-    <ErrorBoundaryComponent key={key} fallback={fallback}>
-      {children}
-    </ErrorBoundaryComponent>
-  ), [key]);
+  const ErrorBoundary = useCallback(
+    ({ children, fallback }: Props) => (
+      <ErrorBoundaryComponent key={key} fallback={fallback}>
+        {children}
+      </ErrorBoundaryComponent>
+    ),
+    [key]
+  );
 
   return { ErrorBoundary, reset };
 };

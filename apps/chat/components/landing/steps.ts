@@ -4,5 +4,5 @@ export const STEPS = [
   { id: 3, translationKey: 'landing.main.steps.3' as const },
 ] as const;
 
-export type Step = typeof STEPS[number];
-export type StepTranslationKey = typeof STEPS[number]['translationKey'];
+export type Step = (typeof STEPS)[number];
+export type StepTranslationKey = (typeof STEPS)[number]['translationKey'];

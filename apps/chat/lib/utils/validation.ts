@@ -3,9 +3,7 @@ import * as yaml from 'js-yaml';
 /**
  * Result type for validation operations
  */
-type ValidationResult =
-  | { success: true }
-  | { success: false; error: string };
+type ValidationResult = { success: true } | { success: false; error: string };
 
 /**
  * Configuration for Swagger validation
@@ -13,7 +11,7 @@ type ValidationResult =
 const CONFIG = {
   maxFileSize: 10 * 1024 * 1024, // 10MB
   validFileExtensions: ['.json', '.yaml', '.yml'] as const,
-  validUrlEndpoints: ['/swagger.json', '/api-docs', '/openapi.json'] as const
+  validUrlEndpoints: ['/swagger.json', '/api-docs', '/openapi.json'] as const,
 } as const;
 
 /**
@@ -26,7 +24,7 @@ export const validateSwaggerUrl = (url: string): ValidationResult => {
   }
 
   // Swagger document URL pattern validation
-  const hasValidEndpoint = CONFIG.validUrlEndpoints.some(endpoint =>
+  const hasValidEndpoint = CONFIG.validUrlEndpoints.some((endpoint) =>
     url.toLowerCase().includes(endpoint.toLowerCase())
   );
 
@@ -53,7 +51,7 @@ const getFileMetadata = (file: File): FileMetadata => ({
   name: file.name,
   type: file.type,
   size: file.size,
-  extension: '.' + file.name.split('.').pop()?.toLowerCase()
+  extension: '.' + file.name.split('.').pop()?.toLowerCase(),
 });
 
 /**
@@ -75,13 +73,14 @@ export const validateSwaggerFile = (file: File): ValidationResult => {
   }
 
   // Extension validation
-  const hasValidExtension = CONFIG.validFileExtensions.some(ext =>
-    metadata.extension === ext
-  );
+  const hasValidExtension = CONFIG.validFileExtensions.some((ext) => metadata.extension === ext);
 
   return hasValidExtension
     ? { success: true }
-    : { success: false, error: `File must have one of these extensions: ${CONFIG.validFileExtensions.join(', ')}` };
+    : {
+        success: false,
+        error: `File must have one of these extensions: ${CONFIG.validFileExtensions.join(', ')}`,
+      };
 };
 
 /**
@@ -90,8 +89,8 @@ export const validateSwaggerFile = (file: File): ValidationResult => {
  * @param fileName Name of the file (used to determine the format)
  */
 export const parseFileContent = (content: string, fileName: string): unknown => {
-  const isYaml = fileName.toLowerCase().endsWith('.yml') ||
-    fileName.toLowerCase().endsWith('.yaml');
+  const isYaml =
+    fileName.toLowerCase().endsWith('.yml') || fileName.toLowerCase().endsWith('.yaml');
 
   return isYaml ? yaml.load(content) : JSON.parse(content);
 };
@@ -109,7 +108,7 @@ export const validateSwaggerDocument = (doc: unknown): boolean => {
 
   return (
     // Must have either swagger or openapi version
-    (('swagger' in swagger) || ('openapi' in swagger)) &&
+    ('swagger' in swagger || 'openapi' in swagger) &&
     // Must have paths object
     'paths' in swagger &&
     typeof swagger.paths === 'object'

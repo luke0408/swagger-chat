@@ -14,10 +14,7 @@ interface HelpButtonProps {
   buttonClassName?: string;
 }
 
-export const HelpButton = ({
-  helpKey,
-  buttonClassName,
-}: HelpButtonProps) => {
+export const HelpButton = ({ helpKey, buttonClassName }: HelpButtonProps) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -31,18 +28,22 @@ export const HelpButton = ({
       <button
         onClick={() => setIsOpen(true)}
         className={cn(
-          'fixed right-4 bottom-4 text-gray-500 hover:text-gray-700 transition-colors',
+          'fixed bottom-4 right-4 text-gray-500 transition-colors hover:text-gray-700',
           buttonClassName
         )}
         title={t('landing.main.help.title')}
       >
-        <QuestionMarkCircleIcon className="w-6 h-6" />
+        <QuestionMarkCircleIcon className="h-6 w-6" />
       </button>
 
       <HelpOverlay
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
-        title={helpKey === 'title' ? t('landing.main.help.title') : t(`landing.main.help.${helpKey}.title`)}
+        title={
+          helpKey === 'title'
+            ? t('landing.main.help.title')
+            : t(`landing.main.help.${helpKey}.title`)
+        }
       >
         <div className="space-y-2">
           {getHelpContent().map((line, index) => (

@@ -3,11 +3,11 @@ import { create } from 'zustand';
 
 import { type ChatState } from '@/types/chat';
 
-export const useChatStore = create<ChatState>(set => ({
+export const useChatStore = create<ChatState>((set) => ({
   messages: [],
   isLoading: false,
-  addMessage: message =>
-    set(state => ({
+  addMessage: (message) =>
+    set((state) => ({
       messages: [
         ...state.messages,
         {

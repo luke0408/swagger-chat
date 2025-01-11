@@ -15,15 +15,15 @@ export const LayoutToggle = () => {
 
   return (
     <button
-      className={cn('p-2 hover:bg-gray-100 rounded-lg')}
+      className={cn('rounded-lg p-2 hover:bg-gray-100')}
       aria-label="Toggle layout"
       onClick={toggleLayout}
       title={layoutMode === 'draggable' ? t('header.layout.split') : t('header.layout.draggable')}
     >
       {layoutMode === 'draggable' ? (
-        <WindowIcon className={cn('w-5 h-5')} />
+        <WindowIcon className={cn('h-5 w-5')} />
       ) : (
-        <ViewColumnsIcon className={cn('w-5 h-5')} />
+        <ViewColumnsIcon className={cn('h-5 w-5')} />
       )}
     </button>
   );

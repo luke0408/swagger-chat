@@ -12,17 +12,13 @@ interface HeaderProps {
   onBackClick?: () => void;
 }
 
-export function Header({
-  isDefault = true,
-  title = 'SWAGGER CHAT',
-  onBackClick,
-}: HeaderProps) {
+export function Header({ isDefault = true, title = 'SWAGGER CHAT', onBackClick }: HeaderProps) {
   const { isSettingsOpen, setIsSettingsOpen } = useSettingsStore();
 
   return (
     <>
-      <header className={cn('fixed top-0 w-full z-20 h-[48px] bg-white border-b border-gray-200')}>
-        <div className={cn('h-full max-w-7xl mx-auto px-4 flex items-center justify-between')}>
+      <header className={cn('fixed top-0 z-20 h-[48px] w-full border-b border-gray-200 bg-white')}>
+        <div className={cn('mx-auto flex h-full max-w-7xl items-center justify-between px-4')}>
           <HeaderLeft title={title} isDefault={isDefault} onBackClick={onBackClick} />
           <HeaderRight
             isDefault={isDefault}
@@ -32,10 +28,7 @@ export function Header({
         </div>
       </header>
 
-      <SettingsPanel
-        isOpen={isSettingsOpen}
-        onBackdropClick={() => setIsSettingsOpen(false)}
-      />
+      <SettingsPanel isOpen={isSettingsOpen} onBackdropClick={() => setIsSettingsOpen(false)} />
     </>
   );
 }

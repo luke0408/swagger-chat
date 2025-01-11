@@ -10,10 +10,7 @@ export class ChatService {
   private locale: string;
   private encryptedApiKey: string;
 
-  constructor(
-    encryptedApiKey: string,
-    locale: string = 'en'
-  ) {
+  constructor(encryptedApiKey: string, locale: string = 'en') {
     this.encryptedApiKey = encryptedApiKey;
     this.locale = locale.toLowerCase().split('-')[0];
   }
@@ -50,8 +47,8 @@ When explaining endpoints:
 3. Describe expected responses and status codes
 4. When relevant, provide example usage
 
-Please provide detailed and accurate information based on this specific API documentation.`
-        }
+Please provide detailed and accurate information based on this specific API documentation.`,
+        },
       ];
 
       return this.swaggerDoc;
@@ -116,7 +113,11 @@ Please provide detailed and accurate information based on this specific API docu
           }
 
           // Request Body
-          if (operation.requestBody && 'content' in operation.requestBody && operation.requestBody.content) {
+          if (
+            operation.requestBody &&
+            'content' in operation.requestBody &&
+            operation.requestBody.content
+          ) {
             documentation += 'Request Body:\n';
             const content = operation.requestBody.content;
             for (const [mediaType, mediaTypeObject] of Object.entries(content)) {
@@ -183,9 +184,14 @@ Please provide detailed and accurate information based on this specific API docu
       'application/x-yaml',
       'text/yaml',
       'text/x-yaml',
-      'application/yaml'
+      'application/yaml',
     ];
-    return allowedTypes.includes(file.type) || file.name.endsWith('.json') || file.name.endsWith('.yaml') || file.name.endsWith('.yml');
+    return (
+      allowedTypes.includes(file.type) ||
+      file.name.endsWith('.json') ||
+      file.name.endsWith('.yaml') ||
+      file.name.endsWith('.yml')
+    );
   }
 
   private async readSwaggerFile(file: File): Promise<string> {
@@ -223,10 +229,10 @@ Please provide detailed and accurate information based on this specific API docu
     const paths = typedDoc.paths as Record<string, unknown>;
 
     const validMethods = ['get', 'post', 'put', 'delete', 'patch', 'options', 'head'];
-    const hasValidEndpoints = Object.values(paths).every(path => {
+    const hasValidEndpoints = Object.values(paths).every((path) => {
       if (!path || typeof path !== 'object') return false;
       const methods = Object.keys(path as object);
-      return methods.some(method => validMethods.includes(method.toLowerCase()));
+      return methods.some((method) => validMethods.includes(method.toLowerCase()));
     });
     if (!hasValidEndpoints) return false;
 
@@ -248,11 +254,7 @@ Please provide detailed and accurate information based on this specific API docu
 
     try {
       const decryptedApiKey = await this.getDecryptedApiKey();
-      const response = await createChatCompletion(
-        decryptedApiKey,
-        this.messages,
-        this.locale
-      );
+      const response = await createChatCompletion(decryptedApiKey, this.messages, this.locale);
 
       this.messages.push({
         role: 'assistant',

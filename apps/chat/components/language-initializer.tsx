@@ -8,7 +8,7 @@ interface LanguageInitializerProps {
 }
 
 export function LanguageInitializer({ locale }: LanguageInitializerProps) {
-  const initializeLanguage = useLanguageStore(state => state.initializeLanguage);
+  const initializeLanguage = useLanguageStore((state) => state.initializeLanguage);
 
   useEffect(() => {
     if (locale) {

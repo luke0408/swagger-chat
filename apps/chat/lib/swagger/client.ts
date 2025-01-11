@@ -29,18 +29,18 @@ class SwaggerParser {
 
   static normalizeType(type?: unknown): string | string[] | undefined {
     if (!type) return undefined;
-    
+
     if (Array.isArray(type)) {
       return type.filter((t): t is string => typeof t === 'string' && t.trim().length > 0);
     }
-    
+
     return typeof type === 'string' && type.trim().length > 0 ? type : undefined;
   }
 
   static normalizeEnum(enumValues?: unknown[]): string[] | undefined {
     if (!enumValues?.length) return undefined;
-    return enumValues.filter((value): value is string =>
-      typeof value === 'string' && value.trim().length > 0
+    return enumValues.filter(
+      (value): value is string => typeof value === 'string' && value.trim().length > 0
     );
   }
 
@@ -120,7 +120,7 @@ class SwaggerParser {
 
         if ('anyOf' in schema && Array.isArray(schema.anyOf)) {
           const convertedAnyOf = schema.anyOf
-            .map(s => this.convertToSchemaType(s))
+            .map((s) => this.convertToSchemaType(s))
             .filter(Boolean) as SchemaType[];
           if (convertedAnyOf.length) {
             result.anyOf = convertedAnyOf;
@@ -129,7 +129,7 @@ class SwaggerParser {
 
         if ('oneOf' in schema && Array.isArray(schema.oneOf)) {
           const convertedOneOf = schema.oneOf
-            .map(s => this.convertToSchemaType(s))
+            .map((s) => this.convertToSchemaType(s))
             .filter(Boolean) as SchemaType[];
           if (convertedOneOf.length) {
             result.oneOf = convertedOneOf;

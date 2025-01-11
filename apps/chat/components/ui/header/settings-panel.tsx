@@ -8,20 +8,17 @@ interface SettingsPanelProps {
   onBackdropClick: () => void;
 }
 
-export const SettingsPanel = ({
-  isOpen,
-  onBackdropClick,
-}: SettingsPanelProps) => {
+export const SettingsPanel = ({ isOpen, onBackdropClick }: SettingsPanelProps) => {
   return (
     <>
       {/* Settings Panel */}
       <div
         className={cn(
-          'fixed top-[48px] left-0 right-0 z-20 bg-white border-b shadow-sm transition-all duration-200',
-          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          'fixed left-0 right-0 top-[48px] z-20 border-b bg-white shadow-sm transition-all duration-200',
+          isOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
         )}
       >
-        <div className={cn('max-w-2xl mx-auto p-4')}>
+        <div className={cn('mx-auto max-w-2xl p-4')}>
           <div className={cn('flex justify-center')}>
             <LanguageSelector />
           </div>
@@ -29,12 +26,7 @@ export const SettingsPanel = ({
       </div>
 
       {/* Backdrop */}
-      {isOpen && (
-        <div
-          className={cn('fixed inset-0 bg-black/20 z-10')}
-          onClick={onBackdropClick}
-        />
-      )}
+      {isOpen && <div className={cn('fixed inset-0 z-10 bg-black/20')} onClick={onBackdropClick} />}
     </>
   );
 };

@@ -10,7 +10,8 @@ import { HelpButton } from '@/components/ui/help/help-button';
 import { cn } from '@/lib';
 
 export const DraggableLayout = () => {
-  const { swaggerWindow, chatWindow, layoutMode, setSwaggerWindow, setChatWindow } = useWindowStore();
+  const { swaggerWindow, chatWindow, layoutMode, setSwaggerWindow, setChatWindow } =
+    useWindowStore();
   const { encryptedApiKey } = useApiKeyStore();
 
   if (layoutMode === 'split') {
@@ -18,7 +19,7 @@ export const DraggableLayout = () => {
   }
 
   return (
-    <div className={cn('relative h-[calc(100vh-48px)] mt-[48px]')}>
+    <div className={cn('relative mt-[48px] h-[calc(100vh-48px)]')}>
       <DraggableWindow
         position={swaggerWindow}
         onPositionChange={setSwaggerWindow}
@@ -27,18 +28,11 @@ export const DraggableLayout = () => {
         <SwaggerWrapper />
       </DraggableWindow>
 
-      <DraggableWindow
-        position={chatWindow}
-        onPositionChange={setChatWindow}
-        title="Chat"
-      >
+      <DraggableWindow position={chatWindow} onPositionChange={setChatWindow} title="Chat">
         {encryptedApiKey ? <ChatContent /> : <ApiKeyInput />}
       </DraggableWindow>
 
-      <HelpButton
-        helpKey="layout"
-        buttonClassName="z-50"
-      />
+      <HelpButton helpKey="layout" buttonClassName="z-50" />
     </div>
   );
 };

@@ -1,9 +1,9 @@
 'use client';
 
-import { Button, Input } from "@/components/ui";
-import { cn } from "@/lib";
-import { useApiKeyStore } from "@/store/useApiKeyStore";
-import { useState } from "react";
+import { Button, Input } from '@/components/ui';
+import { cn } from '@/lib';
+import { useApiKeyStore } from '@/store/useApiKeyStore';
+import { useState } from 'react';
 
 export const ApiKeyInput = () => {
   const { setApiKey } = useApiKeyStore();
@@ -30,9 +30,7 @@ export const ApiKeyInput = () => {
         onChange={(e) => setInputKey(e.target.value)}
         error={error}
       />
-      <Button onClick={handleSubmit}>
-        Submit
-      </Button>
+      <Button onClick={handleSubmit}>Submit</Button>
     </div>
   );
 };

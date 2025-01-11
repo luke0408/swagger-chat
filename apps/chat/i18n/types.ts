@@ -33,9 +33,9 @@ export interface Translation {
     main: {
       getStarted: string;
       steps: {
-        "1": string;
-        "2": string;
-        "3": string;
+        '1': string;
+        '2': string;
+        '3': string;
       };
       input: {
         url: string;

@@ -10,14 +10,7 @@ interface SwitchProps {
   className?: string;
 }
 
-export function Switch({
-  leftLabel,
-  rightLabel,
-  value,
-  onChange,
-  className,
-}: SwitchProps) {
-
+export function Switch({ leftLabel, rightLabel, value, onChange, className }: SwitchProps) {
   const handleToggle = () => {
     onChange?.(!(value ?? false));
   };
@@ -39,14 +32,12 @@ export function Switch({
       <button
         type="button"
         onClick={handleToggle}
-        className={cn(
-          'relative h-8 w-14 rounded-full bg-black transition-colors duration-300'
-        )}
+        className={cn('relative h-8 w-14 rounded-full bg-black transition-colors duration-300')}
       >
         <div
           className={cn(
-            "absolute left-1 top-1 h-6 w-6 rounded-full bg-white transition-transform duration-300",
-            value && "translate-x-6"
+            'absolute left-1 top-1 h-6 w-6 rounded-full bg-white transition-transform duration-300',
+            value && 'translate-x-6'
           )}
         />
       </button>
