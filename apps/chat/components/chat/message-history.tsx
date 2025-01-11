@@ -18,7 +18,7 @@ export function MessageHistory({ isLoading }: Props) {
   }, [messages, isLoading]);
 
   return (
-    <div className="space-y-4 p-4">
+    <div className="space-y-4">
       {messages.length === 0 ? (
         <div></div>
       ) : (
@@ -34,7 +34,7 @@ export function MessageHistory({ isLoading }: Props) {
             <div
               className={cn(
                 'px-4 py-2 rounded-lg max-w-[80%] break-words whitespace-pre-wrap',
-                message.role === 'assistant' && 'bg-gray-100',
+                message.role === 'assistant' && 'bg-gray-50',
                 message.role === 'user' && 'bg-blue-500 text-white'
               )}
               dangerouslySetInnerHTML={{

@@ -1,12 +1,12 @@
 export const parseMarkdown = (text: string) => {
   // Code blocks (```language\ncode```)
   text = text.replace(/```(\w*)\n?([\s\S]*?)```/g, (_, lang, code) => {
-    const language = lang ? `<div class="text-xs text-gray-500 mb-2">${lang}</div>` : '';
-    return `<pre class="relative my-4 p-4 bg-gray-50 rounded-lg overflow-x-auto">${language}<code class="text-sm font-mono text-gray-800">${code.trim()}</code></pre>`;
+    const language = lang ? `<div class="text-xs text-gray-400 mb-2">${lang}</div>` : '';
+    return `<pre class="relative my-4 p-4 bg-gray-200 rounded-lg overflow-x-auto">${language}<code class="text-sm font-mono text-gray-50">${code.trim()}</code></pre>`;
   });
 
   // Inline code (`code`)
-  text = text.replace(/`([^`]+)`/g, '<code class="px-1.5 py-0.5 mx-0.5 bg-gray-100 rounded text-sm font-mono text-gray-800">$1</code>');
+  text = text.replace(/`([^`]+)`/g, '<code class="px-1.5 py-0.5 mx-0.5 bg-gray-700 rounded text-sm font-mono text-gray-50">$1</code>');
 
   // Bold (**text** or __text__)
   text = text.replace(/(\*\*|__)(.*?)\1/g, '<strong>$2</strong>');
