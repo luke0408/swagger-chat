@@ -8,7 +8,7 @@ export const SplitLayout = () => {
   return (
     <div className="h-full">
       <Split
-        className="split"
+        className="split h-full"
         sizes={[40, 60]}
         minSize={[300, 400]}
         gutterSize={4}

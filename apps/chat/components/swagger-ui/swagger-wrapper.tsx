@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { parseFileContent } from '@/lib/utils/validation';
 import { useErrorBoundary } from './error-boundary';
+import { cn } from '@/lib';
 
 const SwaggerUI = dynamic(() => import('swagger-ui-react'), {
   ssr: false
@@ -28,9 +29,9 @@ export const SwaggerWrapper = () => {
   if (!url && !spec) return null;
 
   return (
-    <div className="swagger-wrapper p-4 bg-white h-full">
+    <div className={cn('swagger-wrapper h-full')}>
       <ErrorBoundary>
-        <SwaggerUI url={url} spec={spec} />
+          <SwaggerUI url={url} spec={spec} />
       </ErrorBoundary>
     </div>
   );

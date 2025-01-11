@@ -25,7 +25,7 @@ export default function WindowContainer() {
   }, [setIsMobile]);
 
   return (
-    <>
+    <div className="h-screen flex flex-col">
       <Header
         isDefault={false}
         onBackClick={() => {
@@ -41,6 +41,6 @@ export default function WindowContainer() {
           <SplitLayout />
         )}
       </div>
-    </>
+    </div>
   );
 }

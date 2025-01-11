@@ -62,10 +62,10 @@ export const ChatContent = () => {
 
   return (
     <div className={cn('h-full flex flex-col relative')}>
-      <div className={cn('h-[calc(100%-166px)] overflow-y-auto')}>
+      <div className={cn('pb-[148px] overflow-y-auto')}>
         <MessageHistory isLoading={isLoading} />
       </div>
-      <div className={cn('absolute bottom-0 w-full h-[166px] bg-white border-t p-4')}>
+      <div className={cn('absolute bottom-0 w-full h-[148px] bg-white border-t py-4')}>
         <ChatInput
           onSendMessage={throttledSendMessage}
           disabled={isLoading}

@@ -5,7 +5,7 @@ import { cn } from '@/lib';
 
 export const SwaggerPanel = () => {
   return (
-    <div className={cn('h-screen overflow-y-auto')}>
+    <div className={cn('h-full overflow-y-auto')}>
       <SwaggerWrapper />
     </div>
   );
