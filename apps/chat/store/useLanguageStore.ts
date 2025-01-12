@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 import i18n from '@/i18n';
 
 interface LanguageState {
@@ -8,21 +7,14 @@ interface LanguageState {
   initializeLanguage: (language: string) => void;
 }
 
-export const useLanguageStore = create<LanguageState>()(
-  persist(
-    (set) => ({
-      currentLanguage: '',
-      setLanguage: (language) => {
-        i18n.changeLanguage(language);
-        set({ currentLanguage: language });
-      },
-      initializeLanguage: (language) => {
-        i18n.changeLanguage(language);
-        set({ currentLanguage: language });
-      },
-    }),
-    {
-      name: 'language-storage',
-    }
-  )
-);
+export const useLanguageStore = create<LanguageState>()((set) => ({
+  currentLanguage: '',
+  setLanguage: (language) => {
+    i18n.changeLanguage(language);
+    set({ currentLanguage: language });
+  },
+  initializeLanguage: (language) => {
+    i18n.changeLanguage(language);
+    set({ currentLanguage: language });
+  },
+}));
