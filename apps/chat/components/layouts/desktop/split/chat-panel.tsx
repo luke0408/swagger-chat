@@ -6,9 +6,7 @@ import { useApiKeyStore } from '@/store/useApiKeyStore';
 import { cn } from '@/lib';
 
 export const ChatPanel = () => {
-  const { encryptedApiKey } = useApiKeyStore();
+  const { apiKey } = useApiKeyStore();
 
-  return (
-    <div className={cn('h-full p-4')}>{encryptedApiKey ? <ChatContent /> : <ApiKeyInput />}</div>
-  );
+  return <div className={cn('h-full p-4')}>{apiKey ? <ChatContent /> : <ApiKeyInput />}</div>;
 };

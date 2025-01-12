@@ -13,13 +13,13 @@ import { useApiKeyStore } from '@/store/useApiKeyStore';
 export const ChatContent = () => {
   const { isLoading, addMessage, setIsLoading } = useChatStore();
   const { url } = useSwaggerStore();
-  const { encryptedApiKey } = useApiKeyStore();
+  const { apiKey } = useApiKeyStore();
   const chatServiceRef = useRef<ChatService | null>(null);
 
   useEffect(() => {
-    if (encryptedApiKey && url) {
+    if (apiKey && url) {
       const locale = typeof window !== 'undefined' ? window.navigator.language : 'en';
-      const chatService = new ChatService(encryptedApiKey, locale);
+      const chatService = new ChatService(apiKey, locale);
       chatServiceRef.current = chatService;
 
       (async () => {
@@ -30,7 +30,7 @@ export const ChatContent = () => {
         }
       })();
     }
-  }, [encryptedApiKey, url]);
+  }, [apiKey, url]);
 
   const handleSendMessage = useCallback(
     async (content: string) => {

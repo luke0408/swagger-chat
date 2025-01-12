@@ -9,7 +9,7 @@ import { useApiKeyStore } from '@/store/useApiKeyStore';
 
 export const MobileLayout = () => {
   const { swaggerWindow, chatWindow } = useWindowStore();
-  const { encryptedApiKey } = useApiKeyStore();
+  const { apiKey } = useApiKeyStore();
 
   return (
     <>
@@ -28,7 +28,7 @@ export const MobileLayout = () => {
         title="Chat"
         position={chatWindow}
       >
-        {encryptedApiKey ? <ChatContent /> : <ApiKeyInput />}
+        {apiKey ? <ChatContent /> : <ApiKeyInput />}
       </DraggableWindow>
     </>
   );

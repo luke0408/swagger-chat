@@ -2,21 +2,20 @@ import { OpenApiV3_1 } from '@samchon/openapi';
 import { createChatCompletion } from '../openai/client';
 import type { SimpleChatMessage, SimpleChatRole } from '../../types/openai';
 import { convertToSchemaType, extractSchemaType } from '../swagger/client';
-import { decryptApiKey } from '@/utils/encryption';
 
 export class ChatService {
   private swaggerDoc: OpenApiV3_1.IDocument | null = null;
   private messages: SimpleChatMessage[] = [];
   private locale: string;
-  private encryptedApiKey: string;
+  private apiKey: string;
 
-  constructor(encryptedApiKey: string, locale: string = 'en') {
-    this.encryptedApiKey = encryptedApiKey;
+  constructor(apiKey: string, locale: string = 'en') {
+    this.apiKey = apiKey;
     this.locale = locale.toLowerCase().split('-')[0];
   }
 
-  private async getDecryptedApiKey(): Promise<string> {
-    return await decryptApiKey(this.encryptedApiKey);
+  private async getDecryptedApiKey() {
+    return this.apiKey;
   }
 
   async initializeWithFile(file: File) {
@@ -253,8 +252,7 @@ Please provide detailed and accurate information based on this specific API docu
     });
 
     try {
-      const decryptedApiKey = await this.getDecryptedApiKey();
-      const response = await createChatCompletion(decryptedApiKey, this.messages, this.locale);
+      const response = await createChatCompletion(this.apiKey, this.messages, this.locale);
 
       this.messages.push({
         role: 'assistant',

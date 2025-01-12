@@ -12,7 +12,7 @@ import { cn } from '@/lib';
 export const DraggableLayout = () => {
   const { swaggerWindow, chatWindow, layoutMode, setSwaggerWindow, setChatWindow } =
     useWindowStore();
-  const { encryptedApiKey } = useApiKeyStore();
+  const { apiKey } = useApiKeyStore();
 
   if (layoutMode === 'split') {
     return null;
@@ -29,7 +29,7 @@ export const DraggableLayout = () => {
       </DraggableWindow>
 
       <DraggableWindow position={chatWindow} onPositionChange={setChatWindow} title="Chat">
-        {encryptedApiKey ? <ChatContent /> : <ApiKeyInput />}
+        {apiKey ? <ChatContent /> : <ApiKeyInput />}
       </DraggableWindow>
 
       <HelpButton helpKey="layout" buttonClassName="z-50" />
