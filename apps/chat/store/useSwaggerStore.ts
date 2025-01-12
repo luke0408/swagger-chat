@@ -67,11 +67,6 @@ export const useSwaggerStore = create<SwaggerState & SwaggerActions>((set, get) 
   // Actions
   setType: (type) => set({ type }),
   setUrl: (url) => {
-    const validation = validateSwaggerUrl(url);
-    if (!validation.success) {
-      set({ error: validation.error });
-      return;
-    }
     set({ url, error: null });
   },
   setFile: (file) => {

@@ -6,6 +6,8 @@ import { FileUploader } from './file-uploader';
 import { useSwaggerStore } from '@/store/useSwaggerStore';
 import { useThrottle } from '@/hooks/useThrottle';
 import { useTranslation } from 'react-i18next';
+import { validateSwaggerUrl } from '@/lib/utils/validation';
+import { useMemo } from 'react';
 
 interface SwaggerInputProps {
   type: 'url' | 'file';
@@ -17,6 +19,8 @@ export function SwaggerInput({ type, onSubmit }: SwaggerInputProps) {
   const { url, setUrl, reset } = useSwaggerStore();
   const throttledSubmit = useThrottle(onSubmit, 1000);
 
+  const submitButtonDisabled = useMemo(() => validateSwaggerUrl(url).success == false, [url]);
+
   return (
     <div className={cn('w-full')}>
       {type === 'url' ? (
@@ -27,7 +31,11 @@ export function SwaggerInput({ type, onSubmit }: SwaggerInputProps) {
             onFocus={() => reset()}
             placeholder={t('landing.main.input.placeholder')}
           />
-          <Button onClick={throttledSubmit} className={cn('w-full')}>
+          <Button
+            onClick={throttledSubmit}
+            className={cn('w-full')}
+            disabled={submitButtonDisabled}
+          >
             {t('landing.main.input.submit')}
           </Button>
         </div>
