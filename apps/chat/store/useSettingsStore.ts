@@ -1,22 +1,11 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 
 interface SettingsState {
-  apiKey: string;
-  setApiKey: (key: string) => void;
-  clearApiKey: () => void;
+  isSettingsOpen: boolean;
+  setIsSettingsOpen: (isOpen: boolean) => void;
 }
 
-export const useSettingsStore = create<SettingsState>()(
-  persist(
-    (set) => ({
-      apiKey: '',
-      setApiKey: (key) => set({ apiKey: key }),
-      clearApiKey: () => set({ apiKey: '' }),
-    }),
-    {
-      name: 'swagger-chat-settings',
-      partialize: (state) => ({ apiKey: state.apiKey }),
-    }
-  )
-);
+export const useSettingsStore = create<SettingsState>((set) => ({
+  isSettingsOpen: false,
+  setIsSettingsOpen: (isOpen) => set({ isSettingsOpen: isOpen }),
+}));

@@ -1,0 +1,42 @@
+{
+  "header": {
+    "title": {
+      "line1": "不要再",
+      "line2": "阅读Swagger了"
+    },
+    "description": "通过对话探索Swagger文档。"
+  },
+  "main": {
+    "getStarted": "开始使用",
+    "steps": {
+      "1": "输入Swagger URL或上传文件",
+      "2": "在熟悉的Swagger UI中查看文档",
+      "3": "与AI对话探索API"
+    },
+    "input": {
+      "url": "URL",
+      "file": "文件",
+      "placeholder": "输入Swagger/OpenAPI URL",
+      "submit": "提交",
+      "dragAndDrop": "将Swagger/OpenAPI文件拖放到这里",
+      "browse": "浏览",
+      "error": {
+        "invalidDocument": "无效的Swagger/OpenAPI文档。请检查文件格式和必填字段。"
+      }
+    },
+    "help": {
+      "title": "帮助",
+      "layout": {
+        "title": "布局使用指南",
+        "content": [
+          "拖动窗口标题栏可以自由移动窗口",
+          "拖动窗口角落或边缘可以调整大小"
+        ]
+      }
+    }
+  },
+  "footer": {
+    "line1": "从优化的Swagger UI开始，",
+    "line2": "让AI帮助您更轻松地理解API。"
+  }
+}

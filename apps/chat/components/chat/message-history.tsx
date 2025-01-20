@@ -1,36 +1,16 @@
+'use client';
 
 import { useEffect, useRef } from 'react';
-
 import { useChatStore } from '@/store/useChatStore';
+import { cn } from '@/lib';
+import { parseMarkdown } from '@/lib/markdown';
 
 interface Props {
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
-const parseMarkdown = (text: string) => {
-  text = text.replace(/(\*\*|__)(.*?)\1/g, '<strong>$2</strong>');
-  text = text.replace(/(\*|_)(.*?)\1/g, '<em>$2</em>');
-  text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
-  text = text.replace(
-    /\[([^\]]+)\]\(([^)]+)\)/g,
-    '<a href="$2" class="text-blue-500 hover:underline">$1</a>'
-  );
-
-  return text;
-};
-
-const formatMessageContent = (content: string) => {
-  const parsedContent = parseMarkdown(content);
-  return parsedContent.split('\n').map((line, i, arr) => (
-    <span key={i}>
-      <span className="whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: line }} />
-      {i < arr.length - 1 && <br />}
-    </span>
-  ));
-};
-
 export function MessageHistory({ isLoading }: Props) {
-  const messages = useChatStore(state => state.messages);
+  const messages = useChatStore((state) => state.messages);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -38,28 +18,38 @@ export function MessageHistory({ isLoading }: Props) {
   }, [messages, isLoading]);
 
   return (
-    <div className="space-y-4 py-4">
+    <div className="space-y-4">
       {messages.length === 0 ? (
         <div></div>
       ) : (
-        <>
-          {messages.map(message => (
+        messages.map((message, index) => (
+          <div
+            key={index}
+            className={cn(
+              'flex flex-col space-y-2 text-sm',
+              message.role === 'assistant' && 'items-start',
+              message.role === 'user' && 'items-end'
+            )}
+          >
             <div
-              key={message.id}
-              className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
-            >
-              <div
-                className={`max-w-[80%] rounded-lg px-4 py-2 ${message.role === 'user'
-                  ? 'bg-gray-700 text-white'
-                  : 'bg-white text-black whitespace-pre-line'
-                  }`}
-              >
-                {formatMessageContent(message.content)}
-              </div>
-            </div>
-          ))}
-          {isLoading && <div>Loading...</div>}
-        </>
+              className={cn(
+                'max-w-[80%] whitespace-pre-wrap break-words rounded-lg px-4 py-2',
+                message.role === 'assistant' && 'bg-gray-50',
+                message.role === 'user' && 'bg-blue-500 text-white'
+              )}
+              dangerouslySetInnerHTML={{
+                __html: parseMarkdown(message.content),
+              }}
+            />
+          </div>
+        ))
+      )}
+      {isLoading && (
+        <div className="flex items-center space-x-2 text-sm text-gray-500">
+          <div className="h-2 w-2 animate-bounce rounded-full bg-gray-400" />
+          <div className="h-2 w-2 animate-bounce rounded-full bg-gray-400 [animation-delay:0.2s]" />
+          <div className="h-2 w-2 animate-bounce rounded-full bg-gray-400 [animation-delay:0.4s]" />
+        </div>
       )}
       <div ref={messagesEndRef} />
     </div>
