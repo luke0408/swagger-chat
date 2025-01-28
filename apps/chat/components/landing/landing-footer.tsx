@@ -8,9 +8,9 @@ export function LandingFooter() {
 
   return (
     <footer className={cn('mt-8 text-center text-sm text-gray-500')}>
-      {t('landing.footer.line1')}
+      Swagger Chat
       <br />
-      {t('landing.footer.line2')}
+      API Documentation Assistant
     </footer>
   );
 }

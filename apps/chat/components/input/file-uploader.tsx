@@ -5,7 +5,6 @@ import { cn } from '@/lib/index';
 import { ArrowUpTrayIcon } from '@heroicons/react/24/outline';
 import { useSwaggerStore } from '@/store/useSwaggerStore';
 import { validateSwaggerDocument, parseFileContent } from '@/lib/utils/validation';
-import { useTranslation } from 'react-i18next';
 
 const ACCEPT = '.json,.yaml,.yml';
 
@@ -22,7 +21,6 @@ interface DragEventHandlers {
 }
 
 export function FileUploader({ className, onSuccess }: FileUploaderProps) {
-  const { t } = useTranslation();
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { setFile, setType, error } = useSwaggerStore();
@@ -43,13 +41,13 @@ export function FileUploader({ className, onSuccess }: FileUploaderProps) {
 
       if (!validateSwaggerDocument(parsedContent)) {
         setFile(null);
-        console.error(t('landing.main.input.error.invalidDocument'));
+        console.error('Invalid document format');
         return;
       }
 
       handleFileSuccess(file);
     },
-    [handleFileSuccess, setFile, t]
+    [handleFileSuccess, setFile]
   );
 
   const handleDragEvents = useCallback(
@@ -117,13 +115,13 @@ export function FileUploader({ className, onSuccess }: FileUploaderProps) {
 
         <ArrowUpTrayIcon className="mb-2 h-6 w-6 text-gray-400" aria-hidden="true" />
 
-        <p className="mb-1 text-sm text-gray-500">{t('landing.main.input.dragAndDrop')}</p>
+        <p className="mb-1 text-sm text-gray-500">Drag and drop your OpenAPI file here</p>
 
-        <p className="text-xs text-gray-400">{t('landing.main.input.browse')}</p>
+        <p className="text-xs text-gray-400">or browse to upload</p>
 
         {error && (
           <p className="absolute bottom-2 left-2 text-sm text-red-500">
-            {t('landing.main.input.error.invalidDocument')}
+            Invalid document format
           </p>
         )}
       </div>

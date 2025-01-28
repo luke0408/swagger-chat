@@ -15,7 +15,6 @@ interface SwaggerInputProps {
 }
 
 export function SwaggerInput({ type, onSubmit }: SwaggerInputProps) {
-  const { t } = useTranslation();
   const { url, setUrl, reset } = useSwaggerStore();
   const throttledSubmit = useThrottle(onSubmit, 1000);
 
@@ -29,14 +28,14 @@ export function SwaggerInput({ type, onSubmit }: SwaggerInputProps) {
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             onFocus={() => reset()}
-            placeholder={t('landing.main.input.placeholder')}
+            placeholder="Enter OpenAPI URL"
           />
           <Button
             onClick={throttledSubmit}
             className={cn('w-full')}
             disabled={submitButtonDisabled}
           >
-            {t('landing.main.input.submit')}
+            Submit
           </Button>
         </div>
       ) : (

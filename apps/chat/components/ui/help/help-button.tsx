@@ -31,7 +31,7 @@ export const HelpButton = ({ helpKey, buttonClassName }: HelpButtonProps) => {
           'fixed bottom-4 right-4 text-gray-500 transition-colors hover:text-gray-700',
           buttonClassName
         )}
-        title={t('landing.main.help.title')}
+        title="Help"
       >
         <QuestionMarkCircleIcon className="h-6 w-6" />
       </button>
@@ -41,7 +41,7 @@ export const HelpButton = ({ helpKey, buttonClassName }: HelpButtonProps) => {
         onClose={() => setIsOpen(false)}
         title={
           helpKey === 'title'
-            ? t('landing.main.help.title')
+            ? "Help"
             : t(`landing.main.help.${helpKey}.title`)
         }
       >

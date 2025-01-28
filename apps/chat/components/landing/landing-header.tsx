@@ -16,12 +16,13 @@ export function LandingHeader() {
           'leading-tight'
         )}
       >
-        {t('landing.header.title.line1')}
+        Don't read Swagger anymore
         <br />
-        {t('landing.header.title.line2')}
+        Just Chat
       </h1>
       <p className={cn('mx-auto max-w-md text-lg text-gray-600')}>
-        {t('landing.header.description')}
+        Experience a new way to explore and understand your API documentation through natural
+        conversations
       </p>
     </header>
   );
