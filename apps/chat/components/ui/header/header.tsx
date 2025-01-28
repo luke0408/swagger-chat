@@ -23,7 +23,7 @@ export function Header({ isDefault = true, title = 'SWAGGER CHAT', onBackClick }
       <header className={cn('fixed top-0 z-20 h-[48px] w-full border-b border-gray-200 bg-white')}>
         <div className={cn('mx-auto flex h-full max-w-7xl items-center justify-between px-4')}>
           <HeaderLeft title={title} isDefault={isDefault} onBackClick={onBackClick} />
-          {!isMobile && !isDefault && <LayoutToggle />}
+          {/* {!isMobile && !isDefault && <LayoutToggle />} */}
         </div>
       </header>
 
