@@ -79,7 +79,7 @@ const getInitialState = () => {
   return {
     ...defaultPositions,
     isMobile,
-    layoutMode: 'draggable' as const,
+    layoutMode: 'split' as const,
   };
 };
 
