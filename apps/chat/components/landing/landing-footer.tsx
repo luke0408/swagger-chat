@@ -1,16 +1,39 @@
 'use client';
 
-import { cn } from '@/lib';
-import { useTranslation } from 'react-i18next';
+import { SNSList } from './sns-list';
+
+//TODO
+export const SNS_LIST = [
+  {
+    id: 1,
+    name: 'Github',
+    url: 'https://github.com/anonymousRecords',
+    imgUrl: '/sns/github.png',
+  },
+  {
+    id: 2,
+    name: 'X',
+    url: 'https://x.com/ARecords2022',
+    imgUrl: '/sns/x.webp',
+  },
+  {
+    id: 3,
+    name: 'LinkedIn',
+    url: 'https://www.linkedin.com/in/serim-min-55882b238/',
+    imgUrl: '/sns/linkedin.png',
+  },
+  {
+    id: 4,
+    name: 'Instagram',
+    url: 'https://www.instagram.com/chapdo.dev/',
+    imgUrl: '/sns/instagram.png',
+  },
+] as const;
 
 export function LandingFooter() {
-  const { t } = useTranslation();
-
   return (
-    <footer className={cn('mt-8 text-center text-sm text-gray-500')}>
-      Swagger Chat
-      <br />
-      API Documentation Assistant
-    </footer>
+    <div className="container flex items-center justify-end px-6 py-2">
+      <SNSList list={SNS_LIST} />
+    </div>
   );
 }
