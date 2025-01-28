@@ -13,6 +13,7 @@ export const SplitLayout = () => {
         minSize={[300, 400]}
         gutterSize={4}
         snapOffset={30}
+        direction={'horizontal'}
       >
         <SwaggerPanel />
         <ChatPanel />

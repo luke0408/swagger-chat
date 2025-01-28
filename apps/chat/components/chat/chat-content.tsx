@@ -50,7 +50,7 @@ export const ChatContent = () => {
         console.error('Error sending message:', error);
         addMessage({
           role: 'assistant',
-          content: error instanceof Error ? error.message : '메시지 전송 중 오류가 발생했습니다.',
+          content: 'Sorry, an error occurred while processing your message.',
         });
       } finally {
         setIsLoading(false);
@@ -59,15 +59,15 @@ export const ChatContent = () => {
     [addMessage, setIsLoading]
   );
 
-  const throttledSendMessage = useThrottle(handleSendMessage, 1000);
+  const throttledHandleSendMessage = useThrottle(handleSendMessage, 1000);
 
   return (
-    <div className={cn('relative flex h-full flex-col')}>
-      <div className={cn('overflow-y-auto pb-[148px]')}>
+    <div className="flex h-full flex-col">
+      <div className="h-full min-h-[110px] overflow-y-auto pb-4">
         <MessageHistory isLoading={isLoading} />
       </div>
-      <div className={cn('absolute bottom-0 h-[148px] w-full border-t bg-white py-4')}>
-        <ChatInput onSendMessage={throttledSendMessage} disabled={isLoading} />
+      <div className="mt-auto">
+        <ChatInput onSendMessage={throttledHandleSendMessage} />
       </div>
     </div>
   );

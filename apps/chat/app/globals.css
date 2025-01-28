@@ -21,7 +21,6 @@ body {
 html,
 body {
   height: 100%;
-  overflow: hidden;
 }
 
 img,
@@ -70,4 +69,14 @@ ol {
 .gutter.gutter-horizontal {
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
   cursor: col-resize;
+}
+
+/* TODO: Don't use !important */
+/* Swagger UI Overrides */
+.swagger-ui {
+  height: auto !important;
+}
+
+.swagger-ui .wrapper {
+  height: auto !important;
 }

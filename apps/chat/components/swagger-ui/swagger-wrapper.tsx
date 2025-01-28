@@ -29,7 +29,7 @@ export const SwaggerWrapper = () => {
   if (!url && !spec) return null;
 
   return (
-    <div className={cn('swagger-wrapper h-full')}>
+    <div className={cn('swagger-wrapper')}>
       <ErrorBoundary>
         <SwaggerUI url={url} spec={spec} />
       </ErrorBoundary>
