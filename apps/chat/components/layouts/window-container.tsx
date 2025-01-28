@@ -29,7 +29,7 @@ export default function WindowContainer() {
       <Header
         isDefault={false}
         onBackClick={() => {
-          router.push(`/${locale}`);
+          router.push(`/`);
         }}
       />
       <div className="relative mt-[48px] h-[calc(100vh-48px)] w-full">
