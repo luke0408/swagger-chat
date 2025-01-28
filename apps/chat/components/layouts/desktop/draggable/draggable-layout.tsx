@@ -12,7 +12,6 @@ import { cn } from '@/lib';
 export const DraggableLayout = () => {
   const { swaggerWindow, chatWindow, layoutMode, setSwaggerWindow, setChatWindow } =
     useWindowStore();
-  const { apiKey } = useApiKeyStore();
 
   if (layoutMode === 'split') {
     return null;
@@ -29,7 +28,7 @@ export const DraggableLayout = () => {
       </DraggableWindow>
 
       <DraggableWindow position={chatWindow} onPositionChange={setChatWindow} title="Chat">
-        {apiKey ? <ChatContent /> : <ApiKeyInput />}
+        <ChatContent />
       </DraggableWindow>
 
       <HelpButton helpKey="layout" buttonClassName="z-50" />

@@ -8,18 +8,16 @@ import { useThrottle } from '@/hooks/useThrottle';
 import { cn } from '@/lib';
 import { ChatService } from '@/lib/chat/service';
 import { useSwaggerStore } from '@/store/useSwaggerStore';
-import { useApiKeyStore } from '@/store/useApiKeyStore';
 
 export const ChatContent = () => {
   const { isLoading, addMessage, setIsLoading } = useChatStore();
   const { url } = useSwaggerStore();
-  const { apiKey } = useApiKeyStore();
   const chatServiceRef = useRef<ChatService | null>(null);
 
   useEffect(() => {
-    if (apiKey && url) {
+    if (url) {
       const locale = typeof window !== 'undefined' ? window.navigator.language : 'en';
-      const chatService = new ChatService(apiKey, locale);
+      const chatService = new ChatService(locale);
       chatServiceRef.current = chatService;
 
       (async () => {
@@ -30,7 +28,7 @@ export const ChatContent = () => {
         }
       })();
     }
-  }, [apiKey, url]);
+  }, [url]);
 
   const handleSendMessage = useCallback(
     async (content: string) => {
