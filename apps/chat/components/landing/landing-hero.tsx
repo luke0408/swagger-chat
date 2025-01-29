@@ -20,13 +20,30 @@ export function LandingHero() {
   return (
     <div>
       <div className="mx-auto mb-8 max-w-3xl text-center">
-        <h1 className="mb-2 text-xl font-bold md:text-2xl">SWAGGER CHAT</h1>
-        <h2 className="mb-4 text-2xl font-bold md:text-4xl">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mb-2 text-xl font-bold md:text-2xl"
+        >
+          SWAGGER CHAT
+        </motion.h1>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mb-4 text-2xl font-bold md:text-4xl"
+        >
           Don't read Swagger anymore Just Chat
-        </h2>
-        <p className="mb-8 text-lg text-gray-600">
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mb-8 text-gray-600 sm:text-lg"
+        >
           Transform your Swagger API documentation into an interactive chat experience
-        </p>
+        </motion.p>
 
         {/* Primary CTA */}
         <div className="flex justify-center gap-4">
