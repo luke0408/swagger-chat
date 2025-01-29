@@ -1,9 +1,20 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useRef, useCallback } from 'react';
 
 export function LandingHero() {
   const router = useRouter();
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+    const button = e.currentTarget;
+    const rect = button.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    button.style.setProperty("--mouse-x", `${x}px`);
+    button.style.setProperty("--mouse-y", `${y}px`);
+  }, []);
 
   return (
     <div>
@@ -12,15 +23,16 @@ export function LandingHero() {
         <h2 className="mb-4 text-2xl font-bold md:text-4xl">
           Don't read Swagger anymore Just Chat
         </h2>
-        <p className="mb-8 text-sm text-gray-600 md:text-lg">
-          Experience a new way to explore and understand your API documentation through natural
-          conversations
+        <p className="mb-8 text-lg text-gray-600">
+          Transform your Swagger API documentation into an interactive chat experience
         </p>
 
         {/* Primary CTA */}
         <div className="flex justify-center gap-4 sm:flex-row">
           <button
-            className="rounded-lg bg-black px-8 py-3 text-white transition-colors hover:bg-gray-900"
+            ref={buttonRef}
+            onMouseMove={handleMouseMove}
+            className="hover-button-wrapper rounded-lg bg-black px-8 py-3 text-white transition-colors hover:bg-gray-900"
             onClick={() => router.push('/chat/input')}
           >
             Try Now
@@ -30,10 +42,11 @@ export function LandingHero() {
           </button>
         </div>
       </div>
+
       {/* Divider */}
       <div className="mx-auto my-8 flex w-full max-w-4xl items-center gap-4">
         <div className="h-px flex-1 bg-gray-200"></div>
-        <span className="text-gray-400">or try with popular APIs</span>
+        <div className="text-sm font-medium text-gray-400">Features</div>
         <div className="h-px flex-1 bg-gray-200"></div>
       </div>
     </div>

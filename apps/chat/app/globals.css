@@ -80,3 +80,44 @@ ol {
 .swagger-ui .wrapper {
   height: auto !important;
 }
+
+/* Hover Button */
+.hover-button-wrapper {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.hover-button-wrapper::before,
+.hover-button-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 500ms;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.hover-button-wrapper::before {
+  background: radial-gradient(
+    800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.06),
+    transparent 40%
+  );
+  z-index: 1;
+}
+
+.hover-button-wrapper::after {
+  background: radial-gradient(
+    100px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.4),
+    transparent 40%
+  );
+  z-index: -1;
+}
+
+.hover-button-wrapper:hover::before,
+.hover-button-wrapper:hover::after {
+  opacity: 1;
+}
