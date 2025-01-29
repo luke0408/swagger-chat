@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useRef, useCallback } from 'react';
+import { motion } from 'motion/react';
 
 export function LandingHero() {
   const router = useRouter();
@@ -28,16 +29,21 @@ export function LandingHero() {
         </p>
 
         {/* Primary CTA */}
-        <div className="flex justify-center gap-4 sm:flex-row">
-          <button
+        <div className="flex justify-center gap-4">
+          <motion.button
             ref={buttonRef}
             onMouseMove={handleMouseMove}
             className="hover-button-wrapper rounded-lg bg-black px-8 py-3 text-white transition-colors hover:bg-gray-900"
             onClick={() => router.push('/chat/input')}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 10 }}
           >
             Try Now
-          </button>
-          <button className="rounded-lg border-2 border-gray-300 bg-white px-8 py-3 transition-colors hover:bg-gray-50">
+          </motion.button>
+          <button
+            disabled
+            className="cursor-not-allowed rounded-lg border-2 border-gray-200 bg-gray-50 px-8 py-3 text-gray-400"
+          >
             Learn More
           </button>
         </div>
