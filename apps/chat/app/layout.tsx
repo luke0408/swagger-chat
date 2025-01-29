@@ -13,11 +13,13 @@ export const metadata = {
     description: 'Chat with your Swagger API Documentation',
     images: [
       {
-        url: '/opengraph.png',
+        url: new URL('/opengraph.png', process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000').toString(),
         width: 1200,
         height: 630,
+        alt: 'Swagger Chat OpenGraph Image',
       },
     ],
+    type: 'website',
   },
 };
 
