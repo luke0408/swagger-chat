@@ -3,7 +3,6 @@
 import Split from 'react-split';
 import { SwaggerPanel } from './swagger-panel';
 import { ChatPanel } from './chat-panel';
-import { useWindowStore } from '@/store/useWindowStore';
 import { SwaggerWrapper } from '@/components/swagger-ui/swagger-wrapper';
 import { cn } from '@/lib';
 
