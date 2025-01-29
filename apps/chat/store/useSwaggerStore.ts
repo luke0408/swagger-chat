@@ -59,7 +59,7 @@ interface SwaggerActions {
 export const useSwaggerStore = create<SwaggerState & SwaggerActions>((set, get) => ({
   // State
   type: 'url',
-  url: '',
+  url: 'https://petstore.swagger.io/v2/swagger.json',
   file: null,
   isLoading: false,
   error: null,
