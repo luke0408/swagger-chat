@@ -39,7 +39,7 @@ export function SNSList({ list }: SNSListProps) {
       initial="hidden"
       animate="show"
     >
-      <motion.nav className="flex gap-3">
+      <motion.nav className="flex gap-1">
         {list.map((sns) => (
           <MotionLink
             key={sns.id}
@@ -57,7 +57,7 @@ export function SNSList({ list }: SNSListProps) {
             <motion.img
               src={sns.imgUrl}
               alt={sns.name}
-              className="h-6 w-6 md:h-8 md:w-8"
+              className="h-4 w-4 md:h-6 md:w-6"
               whileHover={{ rotate: 360 }}
               transition={{ duration: 0.5 }}
             />
