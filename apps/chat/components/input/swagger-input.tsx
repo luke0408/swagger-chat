@@ -5,7 +5,6 @@ import { Button, Input } from '@/components/ui';
 import { FileUploader } from './file-uploader';
 import { useSwaggerStore } from '@/store/useSwaggerStore';
 import { useThrottle } from '@/hooks/useThrottle';
-import { useTranslation } from 'react-i18next';
 import { validateSwaggerUrl } from '@/lib/utils/validation';
 import { useMemo } from 'react';
 

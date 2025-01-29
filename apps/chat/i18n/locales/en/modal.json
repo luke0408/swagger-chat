@@ -1,7 +1,0 @@
-{
-  "refresh": {
-    "title": "Confirm Page Refresh",
-    "message": "Refreshing the page will discard all your current work. Do you want to continue?",
-    "confirm": "Continue"
-  }
-}
