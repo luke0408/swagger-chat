@@ -5,6 +5,9 @@ import './globals.css';
 export const metadata = {
   title: 'Swagger Chat',
   description: 'Chat with your Swagger API Documentation',
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({
