@@ -1,8 +1,8 @@
 'use client';
 
-import { LandingFooter } from '@/components/landing/landing-footer';
-import { LandingHero } from '@/components/landing/landing-hero';
-import { LandingPopularApis } from '@/components/landing/landing-popular-apis';
+import { LandingFooter } from '@/components/features/landing/landing-footer';
+import { LandingHero } from '@/components/features/landing/landing-hero';
+import { LandingPopularApis } from '@/components/features/landing/landing-popular-apis';
 
 export default function LandingPage() {
   return (

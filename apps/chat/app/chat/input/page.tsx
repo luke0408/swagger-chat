@@ -5,9 +5,9 @@ import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/navigation';
 import { useSwaggerStore } from '@/store/useSwaggerStore';
 import { cn } from '@/lib';
-import { Switch } from '@/components/ui';
-import { SwaggerInput } from '@/components/input/swagger-input';
+import { SwaggerInput } from '@/components/features/swagger/input/swagger-input';
 import { useChatStore } from '@/store/useChatStore';
+import { Switch } from '@/components/common/\btoggle/switch';
 
 const InputPage = () => {
   const router = useRouter();

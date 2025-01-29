@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { SplitLayout } from '@/components/layouts/desktop/split/split-layout';
-import { MobileSplitLayout } from '@/components/layouts/desktop/split/mobile-split-layout';
-import { ContentSkeleton } from '@/components/ui/skeleton';
+import { MobileSplitLayout } from '@/components/features/workspace/mobile/mobile-split-layout';
 import { APIIcon, APIType, POPULAR_APIS } from './api-icon';
 import { useSwaggerStore } from '@/store/useSwaggerStore';
 import { useIsMobile } from '@/hooks/useMediaQuery';
+import { ContentSkeleton } from '@/components/common/feedback/skeleton';
+import { DesktopSplitLayout } from '../workspace/desktop/desktop-split-layout';
 
 export function LandingPopularApis() {
   const [selectedAPI, setSelectedAPI] = useState<APIType | null>(POPULAR_APIS[0]);
@@ -55,7 +55,7 @@ export function LandingPopularApis() {
           isMobile ? (
             <MobileSplitLayout />
           ) : (
-            <SplitLayout />
+            <DesktopSplitLayout />
           )
         ) : (
           <ContentSkeleton />

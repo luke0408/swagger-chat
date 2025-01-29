@@ -1,12 +1,12 @@
 'use client';
 
-import { SplitLayout } from './desktop/split/split-layout';
-import { Header } from '@/components/ui/header/header';
 import { useRouter } from 'next/navigation';
-import { MobileSplitLayout } from './desktop/split/mobile-split-layout';
 import { useIsMobile } from '@/hooks/useMediaQuery';
+import { Header } from '@/components/common/header';
+import { MobileSplitLayout } from './mobile/mobile-split-layout';
+import { DesktopSplitLayout } from './desktop/desktop-split-layout';
 
-export default function WindowContainer() {
+export default function WorkspaceLayout() {
   const isMobile = useIsMobile();
   const router = useRouter();
 
@@ -19,7 +19,7 @@ export default function WindowContainer() {
         }}
       />
       <div className="relative mt-[48px] h-[calc(100vh-48px)] w-full">
-        {isMobile ? <MobileSplitLayout /> : <SplitLayout />}
+        {isMobile ? <MobileSplitLayout /> : <DesktopSplitLayout />}
       </div>
     </div>
   );

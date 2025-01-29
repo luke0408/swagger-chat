@@ -1,6 +1,6 @@
 'use client';
-import { ChatContent } from '@/components/chat/chat-content';
 import { cn } from '@/lib';
+import { ChatContent } from '../chat/content/chat-content';
 
 export const ChatPanel = () => {
   return (

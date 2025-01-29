@@ -1,8 +1,9 @@
+'use client';
+
 import { useSwaggerStore } from '@/store/useSwaggerStore';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { parseFileContent } from '@/lib/utils/validation';
-import { useErrorBoundary } from './error-boundary';
 import { cn } from '@/lib';
 
 const SwaggerUI = dynamic(() => import('swagger-ui-react'), {
@@ -12,7 +13,6 @@ const SwaggerUI = dynamic(() => import('swagger-ui-react'), {
 export const SwaggerWrapper = () => {
   const { url, file } = useSwaggerStore();
   const [spec, setSpec] = useState<object | undefined>();
-  const { ErrorBoundary } = useErrorBoundary();
 
   useEffect(() => {
     if (!file) {
@@ -30,9 +30,7 @@ export const SwaggerWrapper = () => {
 
   return (
     <div className={cn('swagger-wrapper')}>
-      <ErrorBoundary>
-        <SwaggerUI url={url} spec={spec} />
-      </ErrorBoundary>
+      <SwaggerUI url={url} spec={spec} />
     </div>
   );
 };

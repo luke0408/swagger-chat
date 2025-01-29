@@ -3,11 +3,12 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { useChatStore } from '@/store/useChatStore';
 import { MessageHistory } from './message-history';
-import { ChatInput } from './chat-input';
+
 import { useThrottle } from '@/hooks/useThrottle';
 import { cn } from '@/lib';
 import { ChatService } from '@/lib/chat/service';
 import { useSwaggerStore } from '@/store/useSwaggerStore';
+import { ChatInput } from '../input/chat-input';
 
 export const ChatContent = () => {
   const { isLoading, addMessage, setIsLoading } = useChatStore();

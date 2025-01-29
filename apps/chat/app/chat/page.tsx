@@ -1,9 +1,5 @@
-import WindowContainer from '@/components/layouts/window-container';
+import WorkspaceLayout from '@/components/features/workspace/workspace-layout';
 
-export default function Home() {
-  return (
-    <main className="min-h-screen">
-      <WindowContainer />
-    </main>
-  );
+export default function ChatPage() {
+  return <WorkspaceLayout />;
 }

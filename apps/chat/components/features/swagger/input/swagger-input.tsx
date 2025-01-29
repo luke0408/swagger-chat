@@ -1,12 +1,14 @@
 'use client';
 
 import { cn } from '@/lib';
-import { Button, Input } from '@/components/ui';
-import { FileUploader } from './file-uploader';
+
 import { useSwaggerStore } from '@/store/useSwaggerStore';
 import { useThrottle } from '@/hooks/useThrottle';
 import { validateSwaggerUrl } from '@/lib/utils/validation';
 import { useMemo } from 'react';
+import { Input } from '@/components/common/inputs/input';
+import { Button } from '@/components/common/buttons/button';
+import { FileUploader } from '@/components/common/inputs/file-uploader';
 
 interface SwaggerInputProps {
   type: 'url' | 'file';

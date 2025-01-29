@@ -1,7 +1,7 @@
 'use client';
 
+import { TextArea } from '@/components/common/inputs/text-area';
 import { useState } from 'react';
-import { TextArea } from '../ui';
 
 interface ChatInputProps {
   onSendMessage: (message: string) => void;

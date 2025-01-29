@@ -1,10 +1,9 @@
 'use client';
 
 import Split from 'react-split';
-import { SwaggerPanel } from './swagger-panel';
-import { ChatPanel } from './chat-panel';
-import { SwaggerWrapper } from '@/components/swagger-ui/swagger-wrapper';
+import { ChatPanel } from '../chat-panel';
 import { cn } from '@/lib';
+import { SwaggerWrapper } from '../../swagger/viewer/swagger-wrapper';
 
 export const MobileSplitLayout = () => {
   return (

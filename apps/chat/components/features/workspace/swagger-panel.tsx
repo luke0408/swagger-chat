@@ -1,7 +1,7 @@
 'use client';
 
-import { SwaggerWrapper } from '@/components/swagger-ui/swagger-wrapper';
 import { cn } from '@/lib';
+import { SwaggerWrapper } from '../swagger/viewer/swagger-wrapper';
 
 export const SwaggerPanel = () => {
   return (
