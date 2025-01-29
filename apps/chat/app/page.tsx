@@ -7,7 +7,7 @@ import { LandingPopularApis } from '@/components/landing/landing-popular-apis';
 export default function LandingPage() {
   return (
     <div className="flex min-h-screen flex-col px-4 py-8">
-      <div className="py-8">
+      <div className="flex flex-col items-center justify-center py-8">
         {/* Hero Section */}
         <LandingHero />
 

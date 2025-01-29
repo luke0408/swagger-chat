@@ -12,8 +12,8 @@ export function LandingHero() {
     const rect = button.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    button.style.setProperty("--mouse-x", `${x}px`);
-    button.style.setProperty("--mouse-y", `${y}px`);
+    button.style.setProperty('--mouse-x', `${x}px`);
+    button.style.setProperty('--mouse-y', `${y}px`);
   }, []);
 
   return (
@@ -46,7 +46,7 @@ export function LandingHero() {
       {/* Divider */}
       <div className="mx-auto my-8 flex w-full max-w-4xl items-center gap-4">
         <div className="h-px flex-1 bg-gray-200"></div>
-        <div className="text-sm font-medium text-gray-400">Features</div>
+        <div className="text-sm font-medium text-gray-400">or try with popular APIs</div>
         <div className="h-px flex-1 bg-gray-200"></div>
       </div>
     </div>
