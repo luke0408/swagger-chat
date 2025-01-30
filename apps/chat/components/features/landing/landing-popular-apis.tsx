@@ -50,7 +50,7 @@ export function LandingPopularApis() {
       )}
 
       {/* Split Layout Section */}
-      <div className="h-[400px] rounded-xl border bg-white p-6">
+      <div className={`${isMobile ? 'h-[800px]' : 'h-[600px]'} rounded-xl border bg-white`}>
         {selectedAPI?.url ? (
           isMobile ? (
             <MobileSplitLayout />
@@ -58,7 +58,9 @@ export function LandingPopularApis() {
             <DesktopSplitLayout />
           )
         ) : (
-          <ContentSkeleton />
+          <div className="h-full p-6">
+            <ContentSkeleton />
+          </div>
         )}
       </div>
     </div>
