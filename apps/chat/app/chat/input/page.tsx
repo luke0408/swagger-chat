@@ -8,6 +8,7 @@ import { cn } from '@/lib';
 import { SwaggerInput } from '@/components/features/swagger/input/swagger-input';
 import { useChatStore } from '@/store/useChatStore';
 import { Switch } from '@/components/common/\btoggle/switch';
+import { BackButton } from '@/components/common/buttons/back-button';
 
 const InputPage = () => {
   const router = useRouter();
@@ -29,13 +30,7 @@ const InputPage = () => {
   return (
     <div className="mx-auto flex min-h-screen max-w-2xl flex-col px-4 py-16">
       <div className="mb-8">
-        <button
-          className={cn('rounded-lg p-2 hover:bg-gray-100')}
-          aria-label="Go back"
-          onClick={onBackClick}
-        >
-          <ArrowLeftIcon className="h-5 w-5" />
-        </button>
+        <BackButton onClick={onBackClick} />
         <h1 className="mt-4 text-2xl font-bold">Start with Your API</h1>
       </div>
 
