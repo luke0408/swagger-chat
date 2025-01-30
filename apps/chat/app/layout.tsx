@@ -1,13 +1,21 @@
 import { pretendard } from '@/public/fonts/font';
 import 'swagger-ui-react/swagger-ui.css';
 import './globals.css';
+import { Metadata } from 'next';
 
-export const metadata = {
-  title: 'Swagger Chat',
+export const metadata: Metadata = {
+  title: {
+    default: 'Swagger Chat',
+    template: '%s | Swagger Chat',
+  },
   description: 'Chat with your Swagger API Documentation',
+
   icons: {
     icon: '/favicon.ico',
   },
+
+  metadataBase: new URL('https://swagger-chat.vercel.app/'),
+
   openGraph: {
     title: 'Swagger Chat',
     description: 'Chat with your Swagger API Documentation',
@@ -20,14 +28,31 @@ export const metadata = {
       },
     ],
     type: 'website',
+    siteName: 'Swagger Chat',
+    locale: 'ko_KR',
   },
-  social: {
-    github: 'https://github.com/anonymousRecords/swagger-chat',
-    twitter: 'https://x.com/swagger_chat',
-    bluesky: 'https://bsky.app/profile/swaggerchat.bsky.social',
-    instagram: 'https://www.instagram.com/swagger.chat/',
-    discord: 'https://discord.gg/rMW7F43e',
+
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Swagger Chat',
+    description: 'Chat with your Swagger API Documentation',
+    images: ['/opengraph.png'],
   },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+
+  keywords: ['Swagger', 'API Documentation', 'ChatGPT', 'AI Assistant', 'OpenAPI', 'API Chat'],
+  authors: [{ name: 'Swagger Chat Team' }],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -54,43 +54,18 @@ export function SNSList({ list }: SNSListProps) {
             whileTap={{ scale: 0.9 }}
             target="_blank"
           >
-            <motion.img
-              src={sns.imgUrl}
-              alt={sns.name}
-              className="h-4 w-4 md:h-6 md:w-6"
-              whileHover={{ rotate: 360 }}
-              transition={{ duration: 0.5 }}
-            />
+            <a href={sns.url}>
+              <motion.img
+                src={sns.imgUrl}
+                alt={sns.name}
+                className="h-4 w-4 md:h-6 md:w-6"
+                whileHover={{ rotate: 360 }}
+                transition={{ duration: 0.5 }}
+              />
+            </a>
           </MotionLink>
         ))}
       </motion.nav>
     </motion.div>
   );
 }
-
-export const SNS_LIST = [
-  {
-    id: 1,
-    name: 'Github',
-    url: 'https://github.com/anonymousRecords',
-    imgUrl: '/sns/github.png',
-  },
-  {
-    id: 2,
-    name: 'X',
-    url: 'https://x.com/ARecords2022',
-    imgUrl: '/sns/x.webp',
-  },
-  {
-    id: 3,
-    name: 'LinkedIn',
-    url: 'https://www.linkedin.com/in/serim-min-55882b238/',
-    imgUrl: '/sns/linkedin.png',
-  },
-  {
-    id: 4,
-    name: 'Instagram',
-    url: 'https://www.instagram.com/chapdo.dev/',
-    imgUrl: '/sns/instagram.png',
-  },
-] as const;
