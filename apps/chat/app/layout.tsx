@@ -13,7 +13,7 @@ export const metadata = {
     description: 'Chat with your Swagger API Documentation',
     images: [
       {
-        url: new URL('/opengraph.png', process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000').toString(),
+        url: '/opengraph.png',
         width: 1200,
         height: 630,
         alt: 'Swagger Chat OpenGraph Image',
@@ -23,16 +23,10 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html>
-      <body className={`${pretendard.className} antialiased`}>
-        {children}
-      </body>
+      <body className={`${pretendard.className} antialiased`}>{children}</body>
     </html>
   );
 }
