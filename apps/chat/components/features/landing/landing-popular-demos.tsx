@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MobileSplitLayout } from '@/components/features/workspace/mobile/mobile-split-layout';
 import { useSwaggerStore } from '@/store/useSwaggerStore';
 import { useIsMobile } from '@/hooks/useMediaQuery';
@@ -9,10 +9,12 @@ import { DesktopSplitLayout } from '../workspace/desktop/desktop-split-layout';
 import { DemoContainer } from './demo/container';
 import { DemoType } from './demo/types';
 import { PETSTORE_DEMO } from './demo/icons/petstore';
+import { useChatStore } from '@/store/useChatStore';
 
 export function LandingPopularDemos() {
   const [selectedDemo, setSelectedDemo] = useState<DemoType>(PETSTORE_DEMO);
   const { setUrl, setType } = useSwaggerStore();
+  const { clearMessages } = useChatStore();
   const isMobile = useIsMobile();
 
   const handleDemoSelect = (demo: DemoType) => {
@@ -22,6 +24,10 @@ export function LandingPopularDemos() {
       setUrl(demo.url);
     }
   };
+
+  useEffect(() => {
+    clearMessages();
+  }, []);
 
   return (
     <div className="w-full max-w-4xl space-y-8">
