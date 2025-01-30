@@ -1,5 +1,6 @@
+import { useState, useEffect } from 'react';
+import { useTheme } from 'next-themes';
 
-import { useState, useEffect } from 'react'; import { useTheme } from 'next-themes';
 const ThemeToggle = () => {
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme: theme, setTheme } = useTheme();
@@ -15,7 +16,9 @@ const ThemeToggle = () => {
   return (
     <button
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
+      className="rounded-md p-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+      aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+      disabled={!mounted}
     >
       {theme === 'dark' ? '🌙' : '☀️'}
     </button>
