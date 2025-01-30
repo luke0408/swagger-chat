@@ -2,6 +2,7 @@ import { pretendard } from '@/public/fonts/font';
 import 'swagger-ui-react/swagger-ui.css';
 import './globals.css';
 import { Metadata } from 'next';
+import { JsonLd } from './JsonLd';
 
 export const metadata: Metadata = {
   title: {
@@ -55,9 +56,42 @@ export const metadata: Metadata = {
   authors: [{ name: 'Swagger Chat Team' }],
 };
 
+const swaggerChatSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Swagger Chat',
+  description: 'Chat with your Swagger API Documentation',
+  applicationCategory: 'DeveloperApplication',
+  operatingSystem: 'Web',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  featureList: [
+    'AI-powered Swagger documentation chat',
+    'OpenAPI specification support',
+    'Real-time API interaction',
+  ],
+  url: 'https://swagger-chat.vercel.app',
+  provider: {
+    '@type': 'Organization',
+    name: 'Swagger Chat Team',
+    url: 'https://swagger-chat.vercel.app',
+  },
+  sameAs: [
+    'https://github.com/anonymousRecords/swagger-chat',
+    'https://x.com/swagger_chat',
+    'https://bsky.app/profile/swaggerchat.bsky.social',
+    'https://www.instagram.com/swagger.chat/',
+    'https://discord.gg/rMW7F43e',
+  ],
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html>
+      <JsonLd data={swaggerChatSchema} />
       <body className={`${pretendard.className} antialiased`}>{children}</body>
     </html>
   );
