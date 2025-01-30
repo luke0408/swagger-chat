@@ -3,7 +3,7 @@ import { MobileSplitLayout } from '@/components/features/workspace/mobile/mobile
 import { APIIcon, APIType, POPULAR_APIS } from './api-icon';
 import { useSwaggerStore } from '@/store/useSwaggerStore';
 import { useIsMobile } from '@/hooks/useMediaQuery';
-import { ContentSkeleton } from '@/components/common/feedback/skeleton';
+import { ContentSkeleton } from '@/components/common/feedback/content-skeleton';
 import { DesktopSplitLayout } from '../workspace/desktop/desktop-split-layout';
 
 export function LandingPopularApis() {
