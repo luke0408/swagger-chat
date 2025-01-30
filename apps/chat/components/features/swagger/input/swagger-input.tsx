@@ -31,11 +31,7 @@ export function SwaggerInput({ type, onSubmit }: SwaggerInputProps) {
             onFocus={() => reset()}
             placeholder="Enter OpenAPI URL"
           />
-          <Button
-            onClick={throttledSubmit}
-            className={cn('w-full')}
-            disabled={submitButtonDisabled}
-          >
+          <Button onClick={throttledSubmit} disabled={submitButtonDisabled}>
             Submit
           </Button>
         </div>

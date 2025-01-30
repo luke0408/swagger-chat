@@ -12,8 +12,10 @@ export function Button({
   return (
     <button
       className={cn(
-        'w-full rounded-lg bg-black py-4 text-white',
-        'transition-opacity hover:opacity-90 active:opacity-80',
+        'text-md rounded-lg bg-black px-4 py-4 font-semibold text-white',
+        'transition-all duration-200',
+        'hover:opacity-90',
+        'active:scale-[0.99]',
         'disabled:cursor-not-allowed disabled:opacity-50',
         'cursor-pointer',
         className
