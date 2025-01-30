@@ -1,4 +1,4 @@
-import { SNSList } from './sns-list';
+import { SNSList } from './sns/sns-list';
 
 export const SNS_LIST = [
   {

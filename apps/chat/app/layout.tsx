@@ -21,6 +21,13 @@ export const metadata = {
     ],
     type: 'website',
   },
+  social: {
+    github: 'https://github.com/anonymousRecords/swagger-chat',
+    twitter: 'https://x.com/swagger_chat',
+    bluesky: 'https://bsky.app/profile/swaggerchat.bsky.social',
+    instagram: 'https://www.instagram.com/swagger.chat/',
+    discord: 'https://discord.gg/rMW7F43e',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
