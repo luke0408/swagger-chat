@@ -2,9 +2,9 @@
 
 import { useRouter } from 'next/navigation';
 import { useIsMobile } from '@/hooks/useMediaQuery';
-import { Header } from '@/components/common/header';
 import { MobileSplitLayout } from './mobile/mobile-split-layout';
 import { DesktopSplitLayout } from './desktop/desktop-split-layout';
+import { Header } from '@/components/common/header/header';
 
 export default function WorkspaceLayout() {
   const isMobile = useIsMobile();
@@ -15,7 +15,7 @@ export default function WorkspaceLayout() {
       <Header
         isDefault={false}
         onBackClick={() => {
-          router.push(`/`);
+          router.push(`/chat/input`);
         }}
       />
       <div className="relative mt-[48px] h-[calc(100vh-48px)] w-full">
