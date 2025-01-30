@@ -24,7 +24,6 @@ export const ChatInput = ({ onSendMessage, disabled = false }: ChatInputProps) =
       onSubmit={handleSubmit}
       placeholder="Type your message..."
       rows={5}
-      className="w-full"
       disabled={disabled}
     />
   );

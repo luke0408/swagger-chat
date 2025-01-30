@@ -60,15 +60,11 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
               'disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200',
               className
             )}
-            style={{
-              height: `${Math.max(24 * rows, 72)}px`,
-              maxHeight: `${maxRows * 1.5}em`,
-            }}
             {...props}
           />
         </div>
 
-        {error && <p className="text-sm text-red-500">{error}</p>}
+        {error && <p className={cn('text-sm text-red-500')}>{error}</p>}
       </div>
     );
   }

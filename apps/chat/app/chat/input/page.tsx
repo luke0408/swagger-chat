@@ -28,10 +28,10 @@ const InputPage = () => {
 
   return (
     <div className="mx-auto flex min-h-screen max-w-2xl flex-col px-4 py-16">
-      <div className="mb-8">
+      <header className="mb-8">
         <BackButton onClick={onBackClick} />
         <h1 className="mt-4 text-2xl font-bold">Start with Your API</h1>
-      </div>
+      </header>
 
       <section className={cn('flex w-full flex-col items-center space-y-3 md:space-y-6')}>
         <div className={cn('flex w-full justify-end')}>

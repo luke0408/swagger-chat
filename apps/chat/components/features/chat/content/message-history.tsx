@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { useChatStore } from '@/store/useChatStore';
 import { cn } from '@/lib';
 import { parseMarkdown } from '@/lib/markdown';
+import { LoadingDots } from '@/components/common/feedback/loading-dots';
 
 interface Props {
   isLoading?: boolean;
@@ -35,7 +36,7 @@ export function MessageHistory({ isLoading }: Props) {
               className={cn(
                 'max-w-[80%] whitespace-pre-wrap break-words rounded-lg px-4 py-2',
                 message.role === 'assistant' && 'bg-gray-50',
-                message.role === 'user' && 'bg-blue-500 text-white'
+                message.role === 'user' && 'bg-black text-white'
               )}
               dangerouslySetInnerHTML={{
                 __html: parseMarkdown(message.content),
@@ -44,14 +45,13 @@ export function MessageHistory({ isLoading }: Props) {
           </div>
         ))
       )}
-      {isLoading && (
-        <div className="flex items-center space-x-2 text-sm text-gray-500">
-          <div className="h-2 w-2 animate-bounce rounded-full bg-gray-400" />
-          <div className="h-2 w-2 animate-bounce rounded-full bg-gray-400 [animation-delay:0.2s]" />
-          <div className="h-2 w-2 animate-bounce rounded-full bg-gray-400 [animation-delay:0.4s]" />
+      {isLoading ? (
+        <div className={cn('flex h-full items-center justify-start')}>
+          <LoadingDots />
         </div>
+      ) : (
+        <div ref={messagesEndRef} />
       )}
-      <div ref={messagesEndRef} />
     </div>
   );
 }

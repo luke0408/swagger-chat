@@ -63,11 +63,11 @@ export const ChatContent = () => {
   const throttledHandleSendMessage = useThrottle(handleSendMessage, 1000);
 
   return (
-    <div className="flex h-full flex-col">
-      <div className="h-full min-h-[110px] overflow-y-auto pb-4">
+    <div className={cn('flex h-full flex-col')}>
+      <div className={cn('h-full min-h-[110px] overflow-y-auto pb-4')}>
         <MessageHistory isLoading={isLoading} />
       </div>
-      <div className="mt-auto">
+      <div className={cn('mt-auto')}>
         <ChatInput onSendMessage={throttledHandleSendMessage} />
       </div>
     </div>

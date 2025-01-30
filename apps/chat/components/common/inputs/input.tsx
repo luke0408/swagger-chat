@@ -35,7 +35,7 @@ export function Input({
         {...props}
       />
 
-      {error && <p className="text-sm text-red-500">{error}</p>}
+      {error && <p className={cn('text-sm text-red-500')}>{error}</p>}
     </div>
   );
 }

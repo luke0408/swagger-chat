@@ -113,14 +113,14 @@ export function FileUploader({ className, onSuccess }: FileUploaderProps) {
           onChange={handleFileChange}
         />
 
-        <ArrowUpTrayIcon className="mb-2 h-6 w-6 text-gray-400" aria-hidden="true" />
+        <ArrowUpTrayIcon className={cn('mb-2 h-6 w-6 text-gray-400')} aria-hidden="true" />
 
-        <p className="mb-1 text-sm text-gray-500">Drag and drop your OpenAPI file here</p>
+        <p className={cn('mb-1 text-sm text-gray-500')}>Drag and drop your OpenAPI file here</p>
 
-        <p className="text-xs text-gray-400">or browse to upload</p>
+        <p className={cn('text-xs text-gray-400')}>or browse to upload</p>
 
         {error && (
-          <p className="absolute bottom-2 left-2 text-sm text-red-500">
+          <p className={cn('absolute bottom-2 left-2 text-sm text-red-500')}>
             Invalid document format
           </p>
         )}
