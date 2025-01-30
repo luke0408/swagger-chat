@@ -3,6 +3,7 @@ import 'swagger-ui-react/swagger-ui.css';
 import './globals.css';
 import { Metadata } from 'next';
 import { JsonLd } from './JsonLd';
+import { CSPostHogProvider } from './provider';
 
 export const metadata: Metadata = {
   title: {
@@ -91,52 +92,54 @@ const swaggerChatSchema = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko">
-      <head>
-        <script
-          key="gtag-script"
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-2J0LVMG3R7"
-        />
-        <script
-          key="gtag-config"
-          dangerouslySetInnerHTML={{
-            __html: `
+      <CSPostHogProvider>
+        <head>
+          <script
+            key="gtag-script"
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-2J0LVMG3R7"
+          />
+          <script
+            key="gtag-config"
+            dangerouslySetInnerHTML={{
+              __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', 'G-2J0LVMG3R7');
             `,
-          }}
-        />
-        <script
-          key="gtm-script"
-          dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            }}
+          />
+          <script
+            key="gtm-script"
+            dangerouslySetInnerHTML={{
+              __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
             j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','GTM-NXG9KG7S');`,
-          }}
-        />
-      </head>
-      <body className={`${pretendard.className} antialiased`}>
-        <JsonLd data={swaggerChatSchema} />
-        {children}
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-NXG9KG7S"
-            height="0"
-            width="0"
-            style={{
-              display: 'none',
-              visibility: 'hidden',
-              position: 'absolute',
-              top: 0,
-              left: 0,
             }}
           />
-        </noscript>
-      </body>
+        </head>
+        <body className={`${pretendard.className} antialiased`}>
+          <JsonLd data={swaggerChatSchema} />
+          {children}
+          <noscript>
+            <iframe
+              src="https://www.googletagmanager.com/ns.html?id=GTM-NXG9KG7S"
+              height="0"
+              width="0"
+              style={{
+                display: 'none',
+                visibility: 'hidden',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+              }}
+            />
+          </noscript>
+        </body>
+      </CSPostHogProvider>
     </html>
   );
 }
