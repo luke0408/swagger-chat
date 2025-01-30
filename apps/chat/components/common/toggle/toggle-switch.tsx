@@ -10,7 +10,7 @@ interface SwitchProps {
   className?: string;
 }
 
-export function Switch({ leftLabel, rightLabel, value, onChange, className }: SwitchProps) {
+export function ToggleSwitch({ leftLabel, rightLabel, value, onChange, className }: SwitchProps) {
   const handleToggle = () => {
     onChange?.(!(value ?? false));
   };

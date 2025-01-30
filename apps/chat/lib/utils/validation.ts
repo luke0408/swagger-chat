@@ -1,23 +1,13 @@
 import * as yaml from 'js-yaml';
 
-/**
- * Result type for validation operations
- */
 type ValidationResult = { success: true } | { success: false; error: string };
 
-/**
- * Configuration for Swagger validation
- */
 const CONFIG = {
   maxFileSize: 10 * 1024 * 1024, // 10MB
   validFileExtensions: ['.json', '.yaml', '.yml'] as const,
   validUrlEndpoints: ['/swagger.json', '/api-docs', '/openapi.json'] as const,
 } as const;
 
-/**
- * Validates a URL string for Swagger/OpenAPI documentation
- * @param url URL to validate
- */
 export const validateSwaggerUrl = (url: string): ValidationResult => {
   if (!url) {
     return { success: false, error: 'URL is required' };
@@ -33,9 +23,6 @@ export const validateSwaggerUrl = (url: string): ValidationResult => {
     : { success: false, error: 'URL must point to a Swagger/OpenAPI documentation' };
 };
 
-/**
- * File metadata for logging
- */
 interface FileMetadata {
   name: string;
   type: string;
@@ -43,10 +30,6 @@ interface FileMetadata {
   extension: string;
 }
 
-/**
- * Extracts metadata from a file
- * @param file File to extract metadata from
- */
 const getFileMetadata = (file: File): FileMetadata => ({
   name: file.name,
   type: file.type,
@@ -54,10 +37,6 @@ const getFileMetadata = (file: File): FileMetadata => ({
   extension: '.' + file.name.split('.').pop()?.toLowerCase(),
 });
 
-/**
- * Validates a file for Swagger/OpenAPI documentation
- * @param file File to validate
- */
 export const validateSwaggerFile = (file: File): ValidationResult => {
   if (!file) {
     return { success: false, error: 'File is required' };
@@ -83,11 +62,6 @@ export const validateSwaggerFile = (file: File): ValidationResult => {
       };
 };
 
-/**
- * Parse file content based on file extension
- * @param content File content as string
- * @param fileName Name of the file (used to determine the format)
- */
 export const parseFileContent = (content: string, fileName: string): unknown => {
   const isYaml =
     fileName.toLowerCase().endsWith('.yml') || fileName.toLowerCase().endsWith('.yaml');
@@ -95,10 +69,6 @@ export const parseFileContent = (content: string, fileName: string): unknown => 
   return isYaml ? yaml.load(content) : JSON.parse(content);
 };
 
-/**
- * Validates basic structure of a Swagger/OpenAPI document
- * @param doc Document to validate
- */
 export const validateSwaggerDocument = (doc: unknown): boolean => {
   if (!doc || typeof doc !== 'object') {
     return false;

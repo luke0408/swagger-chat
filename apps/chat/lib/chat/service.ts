@@ -12,10 +12,6 @@ export class ChatService {
     this.locale = locale.toLowerCase().split('-')[0];
   }
 
-  private async getDecryptedApiKey() {
-    return null;
-  }
-
   async initializeWithFile(file: File) {
     if (!this.isSwaggerFile(file)) {
       throw new Error('유효하지 않은 Swagger 파일 형식입니다.');

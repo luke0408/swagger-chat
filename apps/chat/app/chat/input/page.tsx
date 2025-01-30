@@ -1,14 +1,13 @@
 'use client';
 
 import React from 'react';
-import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/navigation';
 import { useSwaggerStore } from '@/store/useSwaggerStore';
 import { cn } from '@/lib';
 import { SwaggerInput } from '@/components/features/swagger/input/swagger-input';
 import { useChatStore } from '@/store/useChatStore';
-import { Switch } from '@/components/common/\btoggle/switch';
 import { BackButton } from '@/components/common/buttons/back-button';
+import { ToggleSwitch } from '@/components/common/toggle/toggle-switch';
 
 const InputPage = () => {
   const router = useRouter();
@@ -36,7 +35,7 @@ const InputPage = () => {
 
       <section className={cn('flex w-full flex-col items-center space-y-3 md:space-y-6')}>
         <div className={cn('flex w-full justify-end')}>
-          <Switch
+          <ToggleSwitch
             value={type === 'file'}
             onChange={(value) => setType(value ? 'file' : 'url')}
             leftLabel="URL"
