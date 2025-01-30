@@ -12,12 +12,13 @@ import { PETSTORE_DEMO } from './demo/icons/petstore';
 
 export function LandingPopularDemos() {
   const [selectedDemo, setSelectedDemo] = useState<DemoType>(PETSTORE_DEMO);
-  const { setUrl } = useSwaggerStore();
+  const { setUrl, setType } = useSwaggerStore();
   const isMobile = useIsMobile();
 
   const handleDemoSelect = (demo: DemoType) => {
     setSelectedDemo(demo);
     if (demo.url) {
+      setType('url');
       setUrl(demo.url);
     }
   };
