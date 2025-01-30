@@ -2,7 +2,7 @@
 
 import { LandingFooter } from '@/components/features/landing/landing-footer';
 import { LandingHero } from '@/components/features/landing/landing-hero';
-import { LandingPopularApis } from '@/components/features/landing/landing-popular-apis';
+import { LandingPopularDemos } from '@/components/features/landing/landing-popular-demos';
 
 export default function LandingPage() {
   return (
@@ -11,8 +11,8 @@ export default function LandingPage() {
         {/* Hero Section */}
         <LandingHero />
 
-        {/* Popular APIs Section */}
-        <LandingPopularApis />
+        {/* Popular Demos Section */}
+        <LandingPopularDemos />
       </div>
 
       {/* Footer */}

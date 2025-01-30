@@ -1,5 +1,3 @@
-'use client';
-
 import { SNSList } from './sns-list';
 
 export const SNS_LIST = [
