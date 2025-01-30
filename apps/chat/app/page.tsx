@@ -5,6 +5,12 @@ import { LandingPopularDemos } from '@/components/features/landing/landing-popul
 import { LandingFooter } from '@/components/features/landing/landing-footer';
 import { useChatStore } from '@/store/useChatStore';
 import { useEffect } from 'react';
+import { defaultMetadata } from './metadata';
+
+export const metadata = {
+  ...defaultMetadata,
+  title: "Don't Read Swagger anymore | Swagger Chat",
+};
 
 export default function LandingPage() {
   const { clearMessages } = useChatStore();

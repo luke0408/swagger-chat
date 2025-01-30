@@ -8,6 +8,12 @@ import { SwaggerInput } from '@/components/features/swagger/input/swagger-input'
 import { useChatStore } from '@/store/useChatStore';
 import { BackButton } from '@/components/common/buttons/back-button';
 import { ToggleSwitch } from '@/components/common/toggle/toggle-switch';
+import { defaultMetadata } from '@/app/metadata';
+
+export const metadata = {
+  ...defaultMetadata,
+  title: 'Chat Interface',
+};
 
 const InputPage = () => {
   const router = useRouter();
