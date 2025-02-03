@@ -1,28 +1,26 @@
-import Image from 'next/image'
-import { BlogPosts } from 'components/posts'
+import Image from 'next/image';
+import { BlogPosts } from 'components/posts';
 
 export default function Page() {
   return (
     <section>
-      <div className="flex items-center mb-8">
+      <div className="mb-8 flex items-center">
         <Image
           src="/profile.png"
           alt="profile image"
           width={100}
           height={100}
-          className="rounded-full mr-4"
+          className="mr-4 rounded-full"
         />
-        <h1 className="text-2xl font-semibold tracking-tighter">
-          My Portfolio
-        </h1>
+        <h1 className="text-2xl font-semibold tracking-tighter">My Portfolio</h1>
       </div>
       <p className="mb-4">
         {`Hello! This blog is created using `}
-        <a 
-          href="https://github.com/notionpresso" 
-          target="_blank" 
+        <a
+          href="https://github.com/notionpresso"
+          target="_blank"
           rel="noopener noreferrer"
-          className="text-blue-600 hover:text-blue-800 underline font-medium transition duration-300 ease-in-out"
+          className="font-medium text-blue-600 underline transition duration-300 ease-in-out hover:text-blue-800"
         >
           Notionpresso
         </a>
@@ -34,5 +32,5 @@ export default function Page() {
         <BlogPosts />
       </div>
     </section>
-  )
+  );
 }

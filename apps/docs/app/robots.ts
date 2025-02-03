@@ -1,13 +1,13 @@
-import { baseUrl } from 'app/sitemap'
+import { baseUrl } from 'app/sitemap';
 
 export default function robots() {
   return {
     rules: [
       {
         userAgent: '*',
-        allow: "/"
+        allow: '/',
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
-  }
+  };
 }
